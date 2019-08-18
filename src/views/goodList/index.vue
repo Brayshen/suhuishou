@@ -1,5 +1,6 @@
 <template>
   <div class="page-list">
+    <h2 @click="fn1">返回</h2>
     <h2>产品列表</h2>
     <ul>
       <li v-for="item in list" :key="item.id">
@@ -25,6 +26,11 @@ export default {
         },
 
       ]
+    }
+  },
+  methods: {
+    fn1 () {
+      this.$router.back()
     }
   }
 }

@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import { NavBar } from "vant";
+import "./assets/styles/base.scss";
 
 Vue.config.productionTip = false;
 Vue.use(NavBar);
