@@ -7,7 +7,34 @@ export default {
     cities: [] // 存储全部的城市数据
   },
 
-  getters: {},
+  getters: {
+    cityList(state) {
+      var result = [];
+
+      state.cities.forEach(item => {
+        // 1. 取出当前城市的拼音首字母的大写
+        let py = item.pinyin.charAt(0).toUpperCase();
+        // 2. 找出result中有没有某个项，他的py为这里的py的对象
+        let index = result.findIndex(a => a.py === py);
+        // 3. 判断
+        if (index > -1) {
+          // 找到了
+          result[index].list.push(item);
+        } else {
+          // 没找到
+          // 构建一个 包含 py 与 list 的对象 {py: 'B', list: [item]}
+          let obj = {
+            py,
+            list: [item]
+          };
+
+          result.push(obj);
+        }
+      });
+
+      return result;
+    }
+  },
 
   mutations: {
     setCities(state, payload) {

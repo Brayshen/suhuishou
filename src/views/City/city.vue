@@ -17,13 +17,18 @@
     <div class="z_list_city">
       <div class="z_list_city_cen">A</div>
       <ul class="z_city_list_two">
-        <li v-for="item in 20">鞍山市</li>
+        <li v-for="item in cityList" :key="item.py">
+          <p>{{item.py}}</p>
+          <!-- <ul>
+            <li v-for="cityList in item.list" :key="cityList.cityId">{{cityList.name}}</li>
+          </ul>-->
+        </li>
       </ul>
     </div>
   </div>
 </template>
 <script>
-import { mapActions } from "vuex"
+import { mapActions, mapGetters } from "vuex"
 export default {
   name: "City",
   data () {
@@ -34,10 +39,12 @@ export default {
   methods: {
     ...mapActions('city', ['getCities']),
 
-
     onClickLeft () {
       this.$router.back()
     },
+  },
+  computed: {
+    ...mapGetters('city', ['cityList']),
   },
 
   created () {
