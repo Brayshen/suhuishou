@@ -1,15 +1,13 @@
 <template>
-  <div class="page-huan">
-    <h4>换手机</h4>
+  <div class="page-list">
+    <h2>产品列表</h2>
     <ul>
       <li v-for="item in list" :key="item.id">
         <router-link :to="'/detail'+item.id">{{item.text}}</router-link>
       </li>
     </ul>
-    <router-link :to="'/goodlist'">更多机型</router-link>
   </div>
 </template>
-
 <script>
 export default {
   name: "List",

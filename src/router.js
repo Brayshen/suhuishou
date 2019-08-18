@@ -48,6 +48,10 @@ const routes = [
   {
     path: "/detail:id",
     component: () => import("./views/Detail/index.vue")
+  },
+  {
+    path: "/goodlist",
+    component: () => import("./views/goodList/index.vue")
   }
 ];
 
