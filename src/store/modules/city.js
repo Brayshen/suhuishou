@@ -9,7 +9,11 @@ export default {
 
   getters: {},
 
-  mutations: {},
+  mutations: {
+    setCities(state, payload) {
+      state.cities = payload.cities;
+    }
+  },
 
   actions: {
     /**

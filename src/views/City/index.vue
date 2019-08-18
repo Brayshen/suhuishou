@@ -37,12 +37,15 @@ export default {
 
     onClickLeft () {
       this.$router.back()
+
+    },
+
+    created () {
+      console.log(123)
+      this.getCities();
     },
   },
 
-  created () {
-    this.getCities();
-  },
 
 }
 </script>
