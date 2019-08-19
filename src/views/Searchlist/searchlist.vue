@@ -1,7 +1,7 @@
 <template>
   <!-- 搜索的上半部分 -->
-  <div class="page-search">
-    <div class="search-box">
+  <div class="page-search" ref="scroll">
+    <div class="search-box" :class="{'z-fived':isFixed}">
       <a href="#" class="z_xiaoyu">
         <em class="icon iconfont iconxiaoyuhao"></em>
       </a>
@@ -21,7 +21,7 @@
     <!-- 商品的列表页 -->
     <div class="z_product_list">
       <ul class="brands">
-        <li>
+        <li class="active">
           <span class="z_span">全部</span>
         </li>
         <li v-for="item in 30">
@@ -37,15 +37,22 @@
 </template>
 <script>
 export default {
-  name: "search",
+  name: "Search",
   data () {
     return {
+      isFixed: false,
       lists: [
         {
           icon: "iconxiaoyuhao"
         }
       ]
     }
+  },
+
+  mounted () {
+    window.addEventListener('scroll', () => {
+      console.log(123);
+    })
   }
 }
 </script>
@@ -54,20 +61,26 @@ html,
 body {
   height: 100%;
 }
+.page-search {
+  height: 100%;
+}
 .z_product_list {
   display: flex;
-  overflow: hidden;
 }
 .z_item {
   display: flex;
   flex: 1;
   margin-top: 10px;
   background: #f8f8f8;
-  overflow-y: auto;
 }
-.page-search {
-  height: 100%;
+.search-box {
+  height: 90px;
   background: #ff4747;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
 }
 .z_xiaoyu {
   width: 20px;
@@ -125,6 +138,20 @@ body {
   li {
     height: 90px;
     text-align: center;
+    position: relative;
+    &.active {
+      background: #f8f8f8;
+      &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        content: "";
+        width: 1.5px;
+        height: 100%;
+        background: #3782ff;
+      }
+    }
     .z_span {
       width: 100%;
       height: 100%;
@@ -144,4 +171,3 @@ body {
   }
 }
 </style>
-
