@@ -9,7 +9,7 @@ export default {
 
   getters: {
     cityList(state) {
-      var result = [];
+      let result = [];
 
       state.cities.forEach(item => {
         // 1. 取出当前城市的拼音首字母的大写
@@ -32,7 +32,13 @@ export default {
         }
       });
 
-      return result;
+      return result.sort((a, b) => {
+        return a.py.charCodeAt() - b.py.charCodeAt();
+      });
+    },
+
+    pys(state, getters) {
+      return getters.cityList.map(item => item.py);
     }
   },
 
