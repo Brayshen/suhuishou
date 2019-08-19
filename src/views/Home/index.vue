@@ -41,6 +41,7 @@ html {
   flex-direction: column;
   > div:first-child {
     flex: 1;
+    overflow-y: auto;
   }
 }
 </style>
