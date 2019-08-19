@@ -52,6 +52,10 @@ const routes = [
   {
     path: "/goodlist",
     component: () => import("./views/goodList/index.vue")
+  },
+  {
+    path: "/searchlist",
+    component: () => import("./views/Searchlist/searchlist.vue")
   }
 ];
 
