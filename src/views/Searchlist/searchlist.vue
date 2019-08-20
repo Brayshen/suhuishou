@@ -1,6 +1,6 @@
 <template>
   <!-- 搜索的上半部分 -->
-  <div class="page-search" ref="scroll">
+  <div class="page-search">
     <div class="search-box" :class="{'z-fived':isFixed}">
       <a href="#" class="z_xiaoyu">
         <em class="icon iconfont iconxiaoyuhao"></em>
@@ -31,7 +31,27 @@
           <span>苹果</span>
         </li>
       </ul>
-      <div class="z_item"></div>
+      <div class="z_van_list">
+        <div class="z_item" v-for="item in 30">
+          <a href="#" class="z_index">
+            <i class="z_i">1</i>
+            <div class="z_img">
+              <a href="#">
+                <img
+                  src="https://image.suhuishou.com/attached/image/20181021/20181021171136_10541.jpg?x-oss-process=style/suhuishou200"
+                />
+              </a>
+            </div>
+            <div class="z_con">
+              <p class="z_p_one">华为 Mate20 Pro</p>
+              <p class="z_p_two">
+                回收均价 :
+                <span>¥4560</span>
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -50,9 +70,7 @@ export default {
   },
 
   mounted () {
-    window.addEventListener('scroll', () => {
-      console.log(123);
-    })
+    console.log(this.$refs['scroll'])
   }
 }
 </script>
@@ -66,12 +84,58 @@ body {
 }
 .z_product_list {
   display: flex;
+  height: 100%;
+  overflow: hidden;
+}
+.z_van_list {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  margin-top: 41px;
+  background: #f8f8f8;
+  overflow-y: auto;
 }
 .z_item {
-  display: flex;
-  flex: 1;
-  margin-top: 10px;
+  width: 100%;
+  height: 90px;
   background: #f8f8f8;
+  border-bottom: 1px solid #efefef;
+
+  .z_index {
+    display: block;
+    display: flex;
+    width: 255px;
+    height: 60px;
+    margin-top: 20px;
+    margin-left: 40px;
+    background: #f8f8f8;
+    box-sizing: border-box;
+    position: relative;
+
+    .z_i {
+      position: absolute;
+      top: 0;
+      left: -26px;
+      display: block;
+      width: 16px;
+      height: 16px;
+      background: yellow;
+      line-height: 16px;
+      text-align: center;
+    }
+    .z_img {
+      width: 60px;
+      height: 60px;
+
+      a {
+        img {
+          width: 60px;
+          height: 60px;
+        }
+      }
+    }
+  }
 }
 .search-box {
   height: 90px;
@@ -87,7 +151,7 @@ body {
   height: 21px;
   color: #f6f7f8;
   vertical-align: center;
-  margin: 5px 6px;
+  margin: 5px 15px;
   i {
     font-size: 16px;
   }
@@ -113,17 +177,18 @@ body {
 .search-type {
   height: 16px;
   display: flex;
-  margin-top: 24px;
+  margin-top: 20px;
   color: #f6f7f8;
   justify-content: space-around;
   position: relative;
   li {
+    font-size: 14px;
     &::before {
       position: absolute;
-      bottom: -10px;
+      bottom: -12px;
       left: 16;
       width: 32px;
-      content: "";
+      content: '';
       background: #000;
       height: 2px;
       transform: scaleY(0.5);
@@ -133,7 +198,7 @@ body {
 .brands {
   width: 80px;
   background: #fff;
-  margin-top: 10px;
+  margin-top: 42px;
   overflow-y: auto;
   li {
     height: 90px;
@@ -146,7 +211,7 @@ body {
         top: 0;
         left: 0;
         display: block;
-        content: "";
+        content: '';
         width: 1.5px;
         height: 100%;
         background: #3782ff;
