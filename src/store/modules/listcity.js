@@ -4,7 +4,15 @@ export default {
   namespaced: true,
   state: {
     searchlist: [], // 存储全部的城市数据
-    logolist: [] // 存储全部的logo数据
+    logolist: [], // 存储全部的logo数据
+    earchlist: [
+      { pinyin: 'shuoji', id: 1, name: '手机' },
+      { pinyin: 'pingban', id: 2, name: '平板' },
+      { pinyin: 'bijiben', id: 3, name: '笔记本' },
+      { pinyin: 'taishiji', id: 4, name: '台式机' },
+      { pinyin: 'xaingji', id: 5, name: '相机' },
+      { pinyin: 'shoubiao', id: 6, name: '手表' }
+    ]
   },
   getters: {
     citylist(state) {
@@ -12,6 +20,9 @@ export default {
     },
     logolist(state) {
       return state.logolist
+    },
+    earchlist(state) {
+      return state.earchlist
     }
   },
 
@@ -30,7 +41,7 @@ export default {
       request.get('http://localhost:3000/dataes').then(res => {
         if (res.Status === 0) {
           console.log(res.brands)
-          console.log(res.products)
+          // console.log(res.products)
           console.log('请求成功~')
           // commit({
           //   type: 'setphonelist',

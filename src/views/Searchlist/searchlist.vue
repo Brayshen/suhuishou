@@ -10,12 +10,12 @@
         <span>请输入关键词搜索</span>
       </a>
       <ul class="search-type">
-        <li>手机</li>
-        <li>平板</li>
-        <li>笔记本</li>
-        <li>台式机</li>
-        <li>相机</li>
-        <li>手表</li>
+        <li
+          v-for="item in earchlist"
+          :key="item.id"
+          @click="fn2(item.id,item.pinyin)"
+          :class="{'actives':item.id===Searchlist}"
+        >{{item.name}}</li>
       </ul>
     </div>
     <!-- 商品的列表页 -->
@@ -39,7 +39,7 @@
       <!-- 右边列表~ -->
       <div class="z_van_list">
         <div class="z_item">
-          <a href="#" class="z_index" v-for="(item,index) in citylist" :key="item.goodsId">
+          <a href="#" class="z_index" v-for="(item,index) in phones" :key="item.goodsId">
             <i class="z_i">{{index+1}}</i>
             <div class="z_img">
               <a href="#">
@@ -66,12 +66,14 @@ export default {
   name: "Search",
   data () {
     return {
-      curBrandId: "", //选择品牌的id
+      Searchlist: 1, //点击搜索的id
+      curBrandId: " ", //选择品牌的id
       phones: [], //
+      pinyin: " "
     }
   },
   computed: {
-    ...mapGetters('listcity', ['setphonelist', 'citylist', 'logolist'])
+    ...mapGetters('listcity', ['setphonelist', 'citylist', 'logolist', 'earchlist'])
   },
   methods: {
     ...mapActions('listcity', ['getPhonelist']),
@@ -79,25 +81,24 @@ export default {
       this.curBrandId = id;
       this.getPhones();
     },
-
+    fn2 (id, pinyin) {
+      this.Searchlist = id;
+      this.pinyin = pinyin;
+      this.getPhones();
+    },
     getPhones () {
-      request.post('http://localhost:3000/datas', {
-        brandId: this.curBrandId,
-        categoryId: 1,
-        isRecommend: this.curBrandId === '' ? true : false,
-        pageIndex: 0,
-        pageSize: 20,
-        refresh: true
-      }).then(res => {
-        console.log(12345)
-        console.log(res)
-      })
+      request.get(`http://localhost:3000/${this.curBrandId}`).then(res => {
+        this.phones = res.products;
+      });
+      request.get(`http://localhost:3000/${this.pinyin}`).then(res => {
+        this.phones = res.products;
+      });
     }
   },
-
   created () {
+    this.getPhones(); //这个是默认显示
     this.getPhonelist();
-    this.getPhones();
+
   }
 }
 </script>
@@ -140,7 +141,7 @@ body {
     box-sizing: border-box;
     position: relative;
     .z_con {
-      width: 110px;
+      width: 329px;
       height: 60px;
       margin-left: 10px;
       .z_p_one {
@@ -231,15 +232,17 @@ body {
   position: relative;
   li {
     font-size: 14px;
-    &::before {
-      position: absolute;
-      bottom: -12px;
-      left: 16;
-      width: 32px;
-      content: '';
-      background: #000;
-      height: 2px;
-      transform: scaleY(0.5);
+    &.actives {
+      &::before {
+        position: absolute;
+        bottom: -12px;
+        left: 16;
+        width: 32px;
+        content: '';
+        background: #000;
+        height: 2px;
+        transform: scaleY(0.5);
+      }
     }
   }
 }
