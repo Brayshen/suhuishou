@@ -10,12 +10,12 @@
         <span>请输入关键词搜索</span>
       </a>
       <ul class="search-type">
-        <li>手机</li>
-        <li>平板</li>
-        <li>笔记本</li>
-        <li>台式机</li>
-        <li>相机</li>
-        <li>手表</li>
+        <li
+          v-for="item in earchlist"
+          :key="item.id"
+          @click="fn2(item.id,item.pinyin)"
+          :class="{'actives':item.id===Searchlist}"
+        >{{item.name}}</li>
       </ul>
     </div>
     <!-- 商品的列表页 -->
@@ -24,29 +24,33 @@
         <li class="active">
           <span class="z_span">全部</span>
         </li>
-        <li v-for="item in 30">
+        <li
+          v-for="item in logolist"
+          :key="item.id"
+          :class="{'active':item.id===curBrandId}"
+          @click="fn(item.id)"
+        >
           <a href="#">
-            <img src="https://images.suhuishou.com/FoLqQKEq7BXWUKBBw6LODCOVtfJW" />
+            <img :src="item.logo" />
           </a>
-          <span>苹果</span>
+          <span>{{item.name}}</span>
         </li>
       </ul>
+      <!-- 右边列表~ -->
       <div class="z_van_list">
-        <div class="z_item" v-for="item in 30">
-          <a href="#" class="z_index">
-            <i class="z_i">1</i>
+        <div class="z_item">
+          <a href="#" class="z_index" v-for="(item,index) in phones" :key="item.goodsId">
+            <i class="z_i">{{index+1}}</i>
             <div class="z_img">
               <a href="#">
-                <img
-                  src="https://image.suhuishou.com/attached/image/20181021/20181021171136_10541.jpg?x-oss-process=style/suhuishou200"
-                />
+                <img :src="item.originalImg" />
               </a>
             </div>
             <div class="z_con">
-              <p class="z_p_one">华为 Mate20 Pro</p>
+              <p class="z_p_one">{{item.goodsName}}</p>
               <p class="z_p_two">
                 回收均价 :
-                <span>¥4560</span>
+                <span>{{'¥'+item.shopPrice}}</span>
               </p>
             </div>
           </a>
@@ -56,20 +60,45 @@
   </div>
 </template>
 <script>
+import { mapActions, mapGetters } from "vuex";
+import request from '../../utils/request'
 export default {
   name: "Search",
   data () {
     return {
-      lists: [
-        {
-          icon: "iconxiaoyuhao"
-        }
-      ]
+      Searchlist: 1, //点击搜索的id
+      curBrandId: " ", //选择品牌的id
+      phones: [], //
+      pinyin: " "
     }
   },
+  computed: {
+    ...mapGetters('listcity', ['setphonelist', 'citylist', 'logolist', 'earchlist'])
+  },
+  methods: {
+    ...mapActions('listcity', ['getPhonelist']),
+    fn (id) {
+      this.curBrandId = id;
+      this.getPhones();
+    },
+    fn2 (id, pinyin) {
+      this.Searchlist = id;
+      this.pinyin = pinyin;
+      this.getPhones();
+    },
+    getPhones () {
+      request.get(`http://localhost:3000/${this.curBrandId}`).then(res => {
+        this.phones = res.products;
+      });
+      request.get(`http://localhost:3000/${this.pinyin}`).then(res => {
+        this.phones = res.products;
+      });
+    }
+  },
+  created () {
+    this.getPhones(); //这个是默认显示
+    this.getPhonelist();
 
-  mounted () {
-    console.log(this.$refs['scroll'])
   }
 }
 </script>
@@ -91,7 +120,7 @@ body {
   flex-direction: column;
   flex: 1;
   height: 100%;
-  margin-top: 41px;
+  margin-top: 90px;
   background: #f8f8f8;
   overflow-y: auto;
 }
@@ -105,23 +134,44 @@ body {
     display: block;
     display: flex;
     width: 255px;
-    height: 60px;
+    height: 70px;
     margin-top: 20px;
     margin-left: 40px;
     background: #f8f8f8;
     box-sizing: border-box;
     position: relative;
+    .z_con {
+      width: 329px;
+      height: 60px;
+      margin-left: 10px;
+      .z_p_one {
+        color: #555;
+        font-size: 11px;
+        height: 22px;
+        line-height: 22px;
+      }
+      .z_p_two {
+        color: #555;
+        font-size: 11px;
+        height: 22px;
+        line-height: 22px;
+        span {
+          color: red;
+        }
+      }
+    }
 
     .z_i {
       position: absolute;
       top: 0;
       left: -26px;
       display: block;
-      width: 16px;
-      height: 16px;
-      background: yellow;
+      width: 18px;
+      height: 18px;
+      background: #ccc;
       line-height: 16px;
       text-align: center;
+      color: #fff;
     }
     .z_img {
       width: 60px;
@@ -182,22 +232,24 @@ body {
   position: relative;
   li {
     font-size: 14px;
-    &::before {
-      position: absolute;
-      bottom: -12px;
-      left: 16;
-      width: 32px;
-      content: '';
-      background: #000;
-      height: 2px;
-      transform: scaleY(0.5);
+    &.actives {
+      &::before {
+        position: absolute;
+        bottom: -12px;
+        left: 16;
+        width: 32px;
+        content: '';
+        background: #000;
+        height: 2px;
+        transform: scaleY(0.5);
+      }
     }
   }
 }
 .brands {
   width: 80px;
   background: #fff;
-  margin-top: 42px;
+  margin-top: 90px;
   overflow-y: auto;
   li {
     height: 90px;
@@ -220,10 +272,13 @@ body {
       width: 100%;
       height: 100%;
       display: inline-block;
-      line-height: 90px;
+      line-height: 62px;
     }
     span {
       display: inline-block;
+      width: 100%;
+      margin-top: 15px;
+      font-size: 12px;
     }
     a {
       img {
