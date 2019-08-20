@@ -56,21 +56,29 @@
   </div>
 </template>
 <script>
+import { mapActions, mapGetters } from "vuex"
 export default {
   name: "Search",
   data () {
     return {
-      lists: [
-        {
-          icon: "iconxiaoyuhao"
-        }
-      ]
+
     }
   },
+  computed: {
+    ...mapGetters('listcity', ['setPhonelist'])
+  },
+  methods: {
+    ...mapActions('listcity', ['getPhonelist'])
 
-  mounted () {
-    console.log(this.$refs['scroll'])
+
+  },
+
+  created () {
+    console.log(12345)
+    this.getPhonelist();
   }
+
+
 }
 </script>
 <style lang="scss">
@@ -91,7 +99,7 @@ body {
   flex-direction: column;
   flex: 1;
   height: 100%;
-  margin-top: 41px;
+  margin-top: 90px;
   background: #f8f8f8;
   overflow-y: auto;
 }
@@ -105,12 +113,32 @@ body {
     display: block;
     display: flex;
     width: 255px;
-    height: 60px;
+    height: 70px;
     margin-top: 20px;
     margin-left: 40px;
     background: #f8f8f8;
     box-sizing: border-box;
     position: relative;
+    .z_con {
+      width: 94px;
+      height: 60px;
+      margin-left: 10px;
+      .z_p_one {
+        color: #555;
+        font-size: 11px;
+        height: 22px;
+        line-height: 22px;
+      }
+      .z_p_two {
+        color: #555;
+        font-size: 11px;
+        height: 22px;
+        line-height: 22px;
+        span {
+          color: red;
+        }
+      }
+    }
 
     .z_i {
       position: absolute;
@@ -118,10 +146,11 @@ body {
       left: -26px;
       display: block;
       width: 16px;
-      height: 16px;
-      background: yellow;
+      height: 18px;
+      background: #ccc;
       line-height: 16px;
       text-align: center;
+      color: #fff;
     }
     .z_img {
       width: 60px;
@@ -197,7 +226,7 @@ body {
 .brands {
   width: 80px;
   background: #fff;
-  margin-top: 42px;
+  margin-top: 90px;
   overflow-y: auto;
   li {
     height: 90px;
