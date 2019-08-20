@@ -163,6 +163,99 @@
         "link": "https://activity.suhuishou.com/reoldnew",
         "appid": ""
       }
-    ]
+    ],
+    "current_page": 1,
+    "goodlist": [
+      {
+        "id": 20623,
+        "title": "vivo Y93s ",
+        "price": "1398.00",
+        "img": "https://image.suhuishou.com/attached/image/20190615/20190615104859_71428.png",
+        "goods_number": 1,
+        "bonus_price": 150
+      },
+      {
+        "id": 20610,
+        "title": "vivo X27 8GB+256GB\u5927\u5185\u5b58 \u96f6\u754c\u5168\u9762\u5c4fAI\u4e09\u6444 \u79fb\u52a8\u8054\u901a\u7535\u4fe1\u5168\u7f51\u901a4G\u624b\u673a",
+        "price": "3298.00",
+        "img": "https://image.suhuishou.com/attached/image/20190615/20190615083946_47241.png",
+        "goods_number": 1,
+        "bonus_price": 500
+      },
+      {
+        "id": 20614,
+        "title": "\u5c0f\u7c73 \u7ea2\u7c737A 3+32GB \u5168\u7f51\u901a4G \u78e8\u7802\u9ed1",
+        "price": "799.00",
+        "img": "https://image.suhuishou.com/attached/image/20190615/20190615094414_97141.png",
+        "goods_number": 1,
+        "bonus_price": 50
+      },
+      {
+        "id": 20631,
+        "title": "\u5c0f\u7c739 4800\u4e07\u8d85\u5e7f\u89d2\u4e09\u6444 8GB+128GB \u9a81\u9f99855 \u5168\u7f51\u901a4G \u53cc\u5361\u53cc\u5f85 \u6c34\u6ef4\u5168\u9762\u5c4f\u62cd\u7167\u6e38\u620f\u667a\u80fd\u624b\u673a",
+        "price": "3299.00",
+        "img": "https://image.suhuishou.com/attached/image/20190615/20190615155411_44423.jpg",
+        "goods_number": 1,
+        "bonus_price": 260
+      },
+      {
+        "id": 20588,
+        "title": "OPPO A9 \u5168\u9762\u5c4f\u62cd\u7167\u624b\u673a 6GB+128GB \u5168\u7f51\u901a \u79fb\u52a8\u8054\u901a\u7535\u4fe14G \u53cc\u5361\u53cc\u5f85\u624b\u673a",
+        "price": "1699.00",
+        "img": "https://image.suhuishou.com/attached/image/20190611/20190611154025_25847.png",
+        "goods_number": 1,
+        "bonus_price": 226
+      },
+      {
+        "id": 20595,
+        "title": "OPPO Reno(6G+256G) \u5168\u9762\u5c4f\u62cd\u7167\u624b\u673a \u5168\u7f51\u901a\u53cc\u5361\u53cc\u5f85 ",
+        "price": "2799.00",
+        "img": "https://image.suhuishou.com/attached/image/20190612/20190612141646_20975.png",
+        "goods_number": 1,
+        "bonus_price": 350
+      },
+      {
+        "id": 20609,
+        "title": "OPPO Reno Z 4800\u4e07\u8d85\u6e05\u50cf\u7d20 \u8d85\u6e05\u591c\u666f2.0 \u5168\u7f51\u901a",
+        "price": "2299.00",
+        "img": "https://image.suhuishou.com/attached/image/20190614/20190614134406_94073.png",
+        "goods_number": 1,
+        "bonus_price": 350
+      },
+      {
+        "id": 20611,
+        "title": "vivo X27 8GB+128GB\u5927\u5185\u5b58 \u96f6\u754c\u5168\u9762\u5c4fAI\u4e09\u6444 \u79fb\u52a8\u8054\u901a\u7535\u4fe1\u5168\u7f51\u901a4G\u624b\u673a",
+        "price": "2998.00",
+        "img": "https://image.suhuishou.com/attached/image/20190615/20190615085002_35398.png",
+        "goods_number": 1,
+        "bonus_price": 400
+      },
+      {
+        "id": 20615,
+        "title": "vivo S1 6GB+128GB  2480\u4e07AI\u9ad8\u6e05\u81ea\u62cd \u8d85\u5e7f\u89d2\u540e\u7f6e\u4e09\u6444\u62cd\u7167\u624b\u673a \u79fb\u52a8\u8054\u901a\u7535\u4fe1\u5168\u7f51\u901a4G\u624b\u673a",
+        "price": "1998.00",
+        "img": "https://image.suhuishou.com/attached/image/20190615/20190615100810_96143.png",
+        "goods_number": 1,
+        "bonus_price": 250
+      },
+      {
+        "id": 20616,
+        "title": "vivo S1 6GB+256GB  2480\u4e07AI\u9ad8\u6e05\u81ea\u62cd \u8d85\u5e7f\u89d2\u540e\u7f6e\u4e09\u6444\u62cd\u7167\u624b\u673a \u79fb\u52a8\u8054\u901a\u7535\u4fe1\u5168\u7f51\u901a4G\u624b\u673a",
+        "price": "2298.00",
+        "img": "https://image.suhuishou.com/attached/image/20190615/20190615101613_87676.png",
+        "goods_number": 1,
+        "bonus_price": 300
+      }
+    ],
+    "first_page_url": "https://www.suhuishou.com/product/hxlist?page=1",
+    "from": 1,
+    "last_page": 3,
+    "last_page_url": "https://www.suhuishou.com/product/hxlist?page=3",
+    "next_page_url": "https://www.suhuishou.com/product/hxlist?page=2",
+    "path": "https://www.suhuishou.com/product/hxlist",
+    "per_page": 10,
+    "prev_page_url": null,
+    "to": 10,
+    "total": 29
   }
 }

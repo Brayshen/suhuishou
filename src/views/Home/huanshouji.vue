@@ -54,20 +54,19 @@
       </div>
       <div class="hot-Model_b">
         <ul>
-          <li v-for="(item, index) in 8" :key="index">
+          <li v-for="(item, index) in products" :key="index">
             <div class="hot-Model_b_img">
-              <img
-                src="https://image.suhuishou.com/attached/image/20190615/20190615104859_71428.png"
-              />
-              <span class="discount_text">-¥150</span>
+              <img :src="item.img" />
+              <span class="discount_text">-￥{{item.bonus_price}}</span>
               <span class="discount_btn"></span>
             </div>
             <div class="hot-Model_b_info">
-              <div class="hot-Model_title">vivo Y93s</div>
+              <div class="hot-Model_title">{{item.title.substr(0,13)}}</div>
               <div class="hot-Model_price">
                 新机价格
                 <span>
-                  <span>¥</span>1398.00
+                  <span>¥</span>
+                  {{item.price}}
                 </span>
               </div>
               <div class="hot-Model_bonusprice">享环保补助金</div>
@@ -149,7 +148,7 @@ export default {
 
   computed: {
     ...mapGetters('huanshouji', ['bannerListImgs']),
-    ...mapState('huanshouji', ['id', 'title', 'price', 'img', 'bonus_price'])
+    ...mapState('huanshouji', ['products'])
   },
 
   methods: {
@@ -158,9 +157,7 @@ export default {
   created() {
     this.getBannerList()
     this.getState()
-  },
-
-  mounted() {}
+  }
 }
 </script>
 <style lang="scss" scoped>

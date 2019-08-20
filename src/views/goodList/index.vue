@@ -1,48 +1,119 @@
 <template>
-  <div class="page-goodList">
-    <div id="hot-Model">
-      <div class="hot-Model_t">
-        <i class="iconfont iconarrow_left"></i>
-        <h5>产品列表</h5>
-      </div>
-      <div class="hot-Model_b">
-        <ul>
-          <li v-for="(item, index) in 8" :key="index">
-            <div class="hot-Model_b_img">
-              <img
-                src="https://image.suhuishou.com/attached/image/20190615/20190615104859_71428.png"
-              />
-              <span class="discount_text">-¥150</span>
-              <span class="discount_btn"></span>
-            </div>
-            <div class="hot-Model_b_info">
-              <div class="hot-Model_title">vivo Y93s</div>
-              <div class="hot-Model_price">
-                新机价格
-                <span>
-                  <span>¥</span>1398.00
-                </span>
+  <van-list :finished="finished" v-model="loading" finished-text="别拉拉" @load="loadFilmList">
+    <div class="page-goodList">
+      <div id="hot-Model">
+        <div class="hot-Model_t">
+          <i class="iconfont iconarrow_left"></i>
+          <h5>产品列表</h5>
+        </div>
+        <div class="hot-Model_b">
+          <ul>
+            <li v-for="item in goodlist" :key="item.id">
+              <div class="hot-Model_b_img">
+                <img :src="item.img" />
+                <span class="discount_text">-￥{{item.bonus_price}}</span>
+                <span class="discount_btn"></span>
               </div>
-              <div class="hot-Model_bonusprice">享环保补助金</div>
-              <button class="hot-Model_btn">去换新</button>
-            </div>
-          </li>
-        </ul>
+              <div class="hot-Model_b_info">
+                <div class="hot-Model_title">{{item.title.substr(0,16)}}</div>
+                <div class="hot-Model_price">
+                  新机价格
+                  <span>
+                    <span>¥</span>
+                    {{item.price}}
+                  </span>
+                </div>
+                <div class="hot-Model_bonusprice">享环保补助金</div>
+                <button class="hot-Model_btn">去换新</button>
+              </div>
+            </li>
+            <li v-for="item in laptoplist" :key="item.id">
+              <div class="hot-Model_b_img">
+                <img :src="item.img" />
+                <span class="discount_text">-￥{{item.bonus_price}}</span>
+                <span class="discount_btn"></span>
+              </div>
+              <div class="hot-Model_b_info">
+                <div class="hot-Model_title">{{item.title.substr(0,16)}}</div>
+                <div class="hot-Model_price">
+                  新机价格
+                  <span>
+                    <span>¥</span>
+                    {{item.price}}
+                  </span>
+                </div>
+                <div class="hot-Model_bonusprice">享环保补助金</div>
+                <button class="hot-Model_btn">去换新</button>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
+  </van-list>
 </template>
 
 <script>
-function resetZoom () {
+import Vue from 'vue'
+import { List, Cell } from 'vant'
+
+import { mapActions, mapGetters, mapState } from 'vuex'
+Vue.use(List).use(Cell)
+function resetZoom() {
   var designWidth = 414 // 设计稿宽度，需根据设计稿进行调整
   var deviceWidth = document.documentElement.clientWidth // 设备宽度
   var scale = deviceWidth / designWidth
   document.body.style.zoom = scale
 }
 resetZoom()
-window.onresize = function () {
+window.onresize = function() {
   resetZoom()
+}
+export default {
+  name: 'List',
+  data() {
+    return {
+      isFixed: false,
+      finished: false, // 是否还有更多数据
+      loading: false, // 是否正在请求数据
+      pageNum: 0, // 当前的页码
+      pageSize: 10, // 每页显示的条数
+      filmType: 0 // 当前影片类型，0-正在热映 1-即将上映
+    }
+  },
+
+  computed: {
+    ...mapState('huanshouji', ['goodlist', 'laptoplist'])
+  },
+
+  methods: {
+    ...mapActions('huanshouji', ['getGoodList']),
+    loadGoodList() {
+      console.log('123')
+      // 3.4.1. 每次进入到这个方法的时候，都要讲 pageNum + 1
+      this.pageNum++
+      // 3.4.2. 调用 仓库中的 action 执行请求，并传递一些参数过去
+      this.getGoodLists({
+        // 其他的参数
+        pageNum: this.pageNum,
+        pageSize: this.pageSize,
+        callback: () => {
+          console.log('回调函数')
+          this.loading = false
+
+          // 最终判断是否还有下一页
+          if (this.pageNum >= this.totalPage) {
+            this.finished = true
+          }
+        }
+      })
+    }
+  },
+  created() {
+    this.getGoodList()
+    console.log(this.goodlist)
+    console.log(this.laptoplist)
+  }
 }
 </script>
 <style lang="scss" scoped>
