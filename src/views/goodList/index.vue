@@ -1,5 +1,11 @@
 <template>
-  <van-list :finished="finished" v-model="loading" finished-text="别拉拉" @load="loadFilmList">
+  <van-list
+    :finished="finished"
+    v-model="loading"
+    loading-text="等一下下嘛"
+    finished-text="嗯~~讨厌~~人家已经都给你看光光了"
+    @load="loadGoodList"
+  >
     <div class="page-goodList">
       <div id="hot-Model">
         <div class="hot-Model_t">
@@ -15,26 +21,7 @@
                 <span class="discount_btn"></span>
               </div>
               <div class="hot-Model_b_info">
-                <div class="hot-Model_title">{{item.title.substr(0,16)}}</div>
-                <div class="hot-Model_price">
-                  新机价格
-                  <span>
-                    <span>¥</span>
-                    {{item.price}}
-                  </span>
-                </div>
-                <div class="hot-Model_bonusprice">享环保补助金</div>
-                <button class="hot-Model_btn">去换新</button>
-              </div>
-            </li>
-            <li v-for="item in laptoplist" :key="item.id">
-              <div class="hot-Model_b_img">
-                <img :src="item.img" />
-                <span class="discount_text">-￥{{item.bonus_price}}</span>
-                <span class="discount_btn"></span>
-              </div>
-              <div class="hot-Model_b_info">
-                <div class="hot-Model_title">{{item.title.substr(0,16)}}</div>
+                <div class="hot-Model_title">{{item.title.substr(0,10)}}</div>
                 <div class="hot-Model_price">
                   新机价格
                   <span>
@@ -83,22 +70,21 @@ export default {
   },
 
   computed: {
-    ...mapState('huanshouji', ['goodlist', 'laptoplist'])
+    ...mapState('huanshouji', ['goodlist', 'totalPage'])
   },
 
   methods: {
     ...mapActions('huanshouji', ['getGoodList']),
     loadGoodList() {
-      console.log('123')
+      // console.log('123')
       // 3.4.1. 每次进入到这个方法的时候，都要讲 pageNum + 1
       this.pageNum++
       // 3.4.2. 调用 仓库中的 action 执行请求，并传递一些参数过去
-      this.getGoodLists({
+      this.getGoodList({
         // 其他的参数
         pageNum: this.pageNum,
         pageSize: this.pageSize,
         callback: () => {
-          console.log('回调函数')
           this.loading = false
 
           // 最终判断是否还有下一页
@@ -111,8 +97,7 @@ export default {
   },
   created() {
     this.getGoodList()
-    console.log(this.goodlist)
-    console.log(this.laptoplist)
+    // console.log(this.goodlist)
   }
 }
 </script>
