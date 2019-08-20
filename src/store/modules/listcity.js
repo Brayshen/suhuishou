@@ -27,14 +27,15 @@ export default {
   actions: {
     // 获取手机产品的列表数据
     getPhonelist({ commit }) {
-      request.get('http://localhost:3000/datas').then(res => {
+      request.get('http://localhost:3000/dataes').then(res => {
         if (res.Status === 0) {
           console.log(res.brands)
+          console.log(res.products)
           console.log('请求成功~')
-          commit({
-            type: 'setphonelist',
-            searchlist: res.products
-          })
+          // commit({
+          //   type: 'setphonelist',
+          //   searchlist: res.products
+          // })
           commit({
             type: 'Logolist',
             logolist: res.brands

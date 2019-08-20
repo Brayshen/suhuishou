@@ -24,7 +24,12 @@
         <li class="active">
           <span class="z_span">全部</span>
         </li>
-        <li v-for="item in logolist">
+        <li
+          v-for="item in logolist"
+          :key="item.id"
+          :class="{'active':item.id===curBrandId}"
+          @click="fn(item.id)"
+        >
           <a href="#">
             <img :src="item.logo" />
           </a>
@@ -55,24 +60,44 @@
   </div>
 </template>
 <script>
-import { mapActions, mapGetters } from "vuex"
+import { mapActions, mapGetters } from "vuex";
+import request from '../../utils/request'
 export default {
   name: "Search",
   data () {
     return {
-
+      curBrandId: "", //选择品牌的id
+      phones: [], //
     }
   },
   computed: {
     ...mapGetters('listcity', ['setphonelist', 'citylist', 'logolist'])
   },
   methods: {
-    ...mapActions('listcity', ['getPhonelist'])
+    ...mapActions('listcity', ['getPhonelist']),
+    fn (id) {
+      this.curBrandId = id;
+      this.getPhones();
+    },
 
+    getPhones () {
+      request.post('http://localhost:3000/datas', {
+        brandId: this.curBrandId,
+        categoryId: 1,
+        isRecommend: this.curBrandId === '' ? true : false,
+        pageIndex: 0,
+        pageSize: 20,
+        refresh: true
+      }).then(res => {
+        console.log(12345)
+        console.log(res)
+      })
+    }
   },
 
   created () {
     this.getPhonelist();
+    this.getPhones();
   }
 }
 </script>
