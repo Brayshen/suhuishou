@@ -166,6 +166,8 @@
     ]
   },
   "datas": {
+    "Status": 0,
+    "code": 200,
     "total": 1007,
     "brands": [
       {
@@ -454,6 +456,146 @@
         "goodsName": "黑鲨",
         "originalImg": "http://images.suhuishou.com/Fs75ldSJ92sXADHXColrSLmNcLJE",
         "shopPrice": 2000
+      },
+      {
+        "goodsId": 20545,
+        "catId": 1,
+        "goodsName": "红米 K20 Pro",
+        "originalImg": "https://image.suhuishou.com/attached/image/20190601/20190601152934_62983.jpg",
+        "shopPrice": 1200
+      },
+      {
+        "goodsId": 20544,
+        "catId": 1,
+        "goodsName": "红米 K20",
+        "originalImg": "https://image.suhuishou.com/attached/image/20190601/20190601152247_67600.jpg",
+        "shopPrice": 1000
+      },
+      {
+        "goodsId": 20543,
+        "catId": 1,
+        "goodsName": "荣耀 20 Pro",
+        "originalImg": "https://image.suhuishou.com/attached/image/20190601/20190601151237_88736.jpg",
+        "shopPrice": 1900
+      },
+      {
+        "goodsId": 20542,
+        "catId": 1,
+        "goodsName": "荣耀 20",
+        "originalImg": "https://image.suhuishou.com/attached/image/20190601/20190601150647_79182.jpg",
+        "shopPrice": 1500
+      },
+      {
+        "goodsId": 20541,
+        "catId": 1,
+        "goodsName": "vivo Y3",
+        "originalImg": "https://image.suhuishou.com/attached/image/20190601/20190601145615_95891.jpg",
+        "shopPrice": 800
+      },
+      {
+        "goodsId": 20540,
+        "catId": 1,
+        "goodsName": "vivo Z5x",
+        "originalImg": "https://image.suhuishou.com/attached/image/20190601/20190601145146_93096.jpg",
+        "shopPrice": 1000
+      },
+      {
+        "goodsId": 20539,
+        "catId": 1,
+        "goodsName": "OPPO K3",
+        "originalImg": "https://image.suhuishou.com/attached/image/20190601/20190601144456_24053.jpg",
+        "shopPrice": 900
+      },
+      {
+        "goodsId": 20538,
+        "catId": 1,
+        "goodsName": "一加7",
+        "originalImg": "https://image.suhuishou.com/attached/image/20190601/20190601143738_94494.jpg",
+        "shopPrice": 1800
+      },
+      {
+        "goodsId": 20485,
+        "catId": 1,
+        "goodsName": "荣耀 Magic2(3D感光版)",
+        "originalImg": "https://image.suhuishou.com/attached/image/20190524/20190524142019_75844.jpg",
+        "shopPrice": 1810
+      },
+      {
+        "goodsId": 20373,
+        "catId": 1,
+        "goodsName": "realme X(青春版)",
+        "originalImg": "https://image.suhuishou.com/attached/image/20190520/20190520100547_70925.jpg",
+        "shopPrice": 400
+      },
+      {
+        "goodsId": 20371,
+        "catId": 1,
+        "goodsName": "realme X",
+        "originalImg": "https://image.suhuishou.com/attached/image/20190520/20190520095850_89278.jpg",
+        "shopPrice": 650
+      },
+      {
+        "goodsId": 20356,
+        "catId": 1,
+        "goodsName": "一加7 Pro",
+        "originalImg": "https://image.suhuishou.com/attached/image/20190517/20190517115148_64654.jpg",
+        "shopPrice": 2500
+      },
+      {
+        "goodsId": 20330,
+        "catId": 1,
+        "goodsName": "诺基亚 9 PureView",
+        "originalImg": "https://image.suhuishou.com/attached/image/20190514/20190514113535_40740.jpg",
+        "shopPrice": 2650
+      },
+      {
+        "goodsId": 20328,
+        "catId": 1,
+        "goodsName": "联想 Z6 Pro",
+        "originalImg": "https://image.suhuishou.com/attached/image/20190514/20190514112240_31833.jpg",
+        "shopPrice": 1200
+      },
+      {
+        "goodsId": 20325,
+        "catId": 1,
+        "goodsName": "诺基亚X71",
+        "originalImg": "https://image.suhuishou.com/attached/image/20190514/20190514111155_42778.jpg",
+        "shopPrice": 980
+      },
+      {
+        "goodsId": 20298,
+        "catId": 1,
+        "goodsName": "vivo Y91",
+        "originalImg": "https://image.suhuishou.com/attached/image/20190510/20190510180404_64650.png",
+        "shopPrice": 400
+      },
+      {
+        "goodsId": 20279,
+        "catId": 1,
+        "goodsName": "OPPO A9",
+        "originalImg": "https://image.suhuishou.com/attached/image/20190508/20190508173436_13981.jpg",
+        "shopPrice": 1000
+      },
+      {
+        "goodsId": 20278,
+        "catId": 1,
+        "goodsName": "魅族 魅蓝 A5",
+        "originalImg": "https://image.suhuishou.com/attached/image/20190508/20190508171607_91309.jpg",
+        "shopPrice": 80
+      },
+      {
+        "goodsId": 20225,
+        "catId": 1,
+        "goodsName": "vivo S1 Pro",
+        "originalImg": "https://image.suhuishou.com/attached/image/20190506/20190506114257_87009.jpg",
+        "shopPrice": 1200
+      },
+      {
+        "goodsId": 20163,
+        "catId": 1,
+        "goodsName": "三星 Galaxy A70",
+        "originalImg": "https://image.suhuishou.com/attached/image/20190502/20190502105028_12862.jpg",
+        "shopPrice": 1350
       }
     ]
   }

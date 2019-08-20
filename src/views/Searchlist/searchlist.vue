@@ -24,29 +24,28 @@
         <li class="active">
           <span class="z_span">全部</span>
         </li>
-        <li v-for="item in 30">
+        <li v-for="item in logolist">
           <a href="#">
-            <img src="https://images.suhuishou.com/FoLqQKEq7BXWUKBBw6LODCOVtfJW" />
+            <img :src="item.logo" />
           </a>
-          <span>苹果</span>
+          <span>{{item.name}}</span>
         </li>
       </ul>
+      <!-- 右边列表~ -->
       <div class="z_van_list">
-        <div class="z_item" v-for="item in 30">
-          <a href="#" class="z_index">
-            <i class="z_i">1</i>
+        <div class="z_item">
+          <a href="#" class="z_index" v-for="(item,index) in citylist" :key="item.goodsId">
+            <i class="z_i">{{index+1}}</i>
             <div class="z_img">
               <a href="#">
-                <img
-                  src="https://image.suhuishou.com/attached/image/20181021/20181021171136_10541.jpg?x-oss-process=style/suhuishou200"
-                />
+                <img :src="item.originalImg" />
               </a>
             </div>
             <div class="z_con">
-              <p class="z_p_one">华为 Mate20 Pro</p>
+              <p class="z_p_one">{{item.goodsName}}</p>
               <p class="z_p_two">
                 回收均价 :
-                <span>¥4560</span>
+                <span>{{'¥'+item.shopPrice}}</span>
               </p>
             </div>
           </a>
@@ -65,20 +64,16 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('listcity', ['setPhonelist'])
+    ...mapGetters('listcity', ['setphonelist', 'citylist', 'logolist'])
   },
   methods: {
     ...mapActions('listcity', ['getPhonelist'])
 
-
   },
 
   created () {
-    console.log(12345)
     this.getPhonelist();
   }
-
-
 }
 </script>
 <style lang="scss">
@@ -120,7 +115,7 @@ body {
     box-sizing: border-box;
     position: relative;
     .z_con {
-      width: 94px;
+      width: 110px;
       height: 60px;
       margin-left: 10px;
       .z_p_one {
@@ -145,7 +140,7 @@ body {
       top: 0;
       left: -26px;
       display: block;
-      width: 16px;
+      width: 18px;
       height: 18px;
       background: #ccc;
       line-height: 16px;
@@ -249,10 +244,13 @@ body {
       width: 100%;
       height: 100%;
       display: inline-block;
-      line-height: 90px;
+      line-height: 62px;
     }
     span {
       display: inline-block;
+      width: 100%;
+      margin-top: 15px;
+      font-size: 12px;
     }
     a {
       img {
