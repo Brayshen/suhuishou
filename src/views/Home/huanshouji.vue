@@ -148,14 +148,16 @@ export default {
   },
 
   computed: {
-    ...mapGetters('huanshouji', ['bannerListImgs'])
+    ...mapGetters('huanshouji', ['bannerListImgs']),
+    ...mapState('huanshouji', ['id', 'title', 'price', 'img', 'bonus_price'])
   },
 
   methods: {
-    ...mapActions('huanshouji', ['getBannerList'])
+    ...mapActions('huanshouji', ['getBannerList', 'getState'])
   },
   created() {
     this.getBannerList()
+    this.getState()
   },
 
   mounted() {}

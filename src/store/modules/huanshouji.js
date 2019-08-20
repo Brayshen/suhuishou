@@ -5,7 +5,12 @@ export default {
   namespaced: true,
 
   state: {
-    bannerList: [] // 热门影片轮播图数据
+    bannerList: [], // 热门影片轮播图数据
+    title: [],
+    price: [],
+    img: [],
+    id: [],
+    bonus_price: []
   },
 
   getters: {
@@ -17,6 +22,13 @@ export default {
   mutations: {
     setBannerList(state, payload) {
       state.bannerList = payload
+    },
+    setState(state, payload) {
+      state.title = payload.map(item => item.code)
+      state.price = payload.map(item => item.price)
+      state.img = payload.map(item => item.img)
+      state.id = payload.map(item => item.id)
+      state.bonus_price = payload.map(item => item.bonus_price)
     }
   },
 
@@ -30,11 +42,13 @@ export default {
         commit('setBannerList', mobilebanners)
       })
     },
-    getGoodList({ commit }) {
+    getState({ commit }) {
       // axios.get('/banner') 如果这里直接用axios不用封装了baseUrl的实例则前面会自动生成页面地址再拼接http://localhost:8080/banner
       request.get('http://localhost:3000/data').then(data => {
         // 请求成功，还需将后台返回的数.据存放到 state 中
         console.log(data)
+        let products = data.products
+        commit('setState', products)
       })
     }
   }
