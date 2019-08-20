@@ -31,12 +31,12 @@
   </div>
 </template>
 <script>
-import { mapActions, mapGetters } from "vuex"
+import { mapActions, mapGetters } from 'vuex'
 export default {
-  name: "City",
+  name: 'City',
   data () {
     return {
-      value: "",
+      value: ''
     }
   },
   methods: {
@@ -56,12 +56,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('city', ['cityList', 'pys']),
+    ...mapGetters('city', ['cityList', 'pys'])
   },
 
   created () {
-    this.getCities();
-  },
+    this.getCities()
+  }
 
 }
 </script>

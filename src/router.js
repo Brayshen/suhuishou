@@ -1,4 +1,4 @@
-//1.引入Vue
+// 1.引入Vue
 import Vue from 'vue'
 // 2.引入 VueRouter
 import VueRouter from 'vue-router'

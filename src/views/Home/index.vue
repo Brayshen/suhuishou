@@ -6,7 +6,7 @@
 </template>
 <script>
 
-import Tabbar from '../../components/Tabber/index';
+import Tabbar from '../../components/Tabber/index'
 export default {
   name: 'Home',
   components: {

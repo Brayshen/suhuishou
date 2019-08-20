@@ -69,7 +69,7 @@
           <div class="img" style="background: url(https://image.suhuishou.com/assets/image/navigate/20190312/shoubiao.png) 0% 0% / 100% no-repeat"></div>
           <span>手表</span>
         </div>
-        
+
       </div>
       <button class="guess">估价下单</button>
     </div>
@@ -79,15 +79,15 @@
 </template>
 
 <script>
-import Banner from "../../components/Banner";
+import Banner from '../../components/Banner'
 
 export default {
-  name: "Home",
+  name: 'Home',
 
   components: {
     Banner
   }
-};
+}
 </script>
 
 <style lang="scss">

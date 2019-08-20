@@ -9,8 +9,8 @@
 export default {
   data () {
     return {
-      msg: "商品的详情页~",
-      xinxi: "改详情是---"
+      msg: '商品的详情页~',
+      xinxi: '改详情是---'
     }
   }
 }

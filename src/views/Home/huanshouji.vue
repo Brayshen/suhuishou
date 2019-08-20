@@ -13,24 +13,8 @@
         <i class="iconfont icon-fangdajing"></i>
       </button>
     </div>
-    <div class="swiper-container">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <img
-            src="https://image.suhuishou.com/attached/image/20190617/20190617165236_86188.jpg"
-            alt
-          />
-        </div>
-        <div class="swiper-slide">
-          <img
-            src="https://image.suhuishou.com/attached/image/20190617/20190617173725_74676.jpg"
-            alt
-          />
-        </div>
-      </div>
-      <!-- 如果需要分页器 -->
-      <div class="swiper-pagination" v-if="pagination"></div>
-    </div>
+    <!-- 轮播图 -->
+    <Banner pagination autoplay loop :imgs="bannerListImgs" v-if="bannerListImgs.length > 0" />
     <div class="useless_button">
       <button class="btn_l">官方授权</button>
       <button class="btn_r">正品保障</button>
@@ -131,16 +115,16 @@
 
 <script>
 import Vue from 'vue'
-import { Search } from 'vant'
+import Banner from '../../components/Banner'
+import { mapActions, mapGetters, mapState } from 'vuex'
 import axios from 'axios'
 import Swiper from 'swiper'
 import 'swiper/dist/css/swiper.css'
-import { mapActions, mapGetters } from 'vuex'
+import { log } from 'util'
 
-Vue.use(Search)
 function resetZoom() {
-  var designWidth = 414 //设计稿宽度，需根据设计稿进行调整
-  var deviceWidth = document.documentElement.clientWidth //设备宽度
+  var designWidth = 414 // 设计稿宽度，需根据设计稿进行调整
+  var deviceWidth = document.documentElement.clientWidth // 设备宽度
   var scale = deviceWidth / designWidth
   document.body.style.zoom = scale
 }
@@ -150,6 +134,9 @@ window.onresize = function() {
 }
 export default {
   name: 'List',
+  components: {
+    Banner
+  },
 
   props: {
     imgs: Array, // 轮播图的数据 ['http://11.jpg', 'http://22.jpg']
@@ -167,38 +154,11 @@ export default {
   methods: {
     ...mapActions('huanshouji', ['getBannerList'])
   },
-
-  methods: {
-    /**
-     * 初始化 swiper
-     */
-    initSwiper() {
-      new Swiper('.swiper-container', {
-        pagination: this.pagination
-          ? {
-              el: '.swiper-pagination'
-            }
-          : {},
-
-        navigation: this.navigation
-          ? {
-              nextEl: '.swiper-button-next',
-              prevEl: '.swiper-button-prev'
-            }
-          : {}
-      })
-    }
-  },
   created() {
     this.getBannerList()
   },
 
-  mounted() {
-    this.initSwiper()
-  }
-  // updated() {
-  // this.initSwiper() 最后一部这里如果不在src/views/home/films.vue判断 v-if 则需要吧mounted改为注释掉的updated
-  // }
+  mounted() {}
 }
 </script>
 <style lang="scss" scoped>
@@ -289,12 +249,7 @@ export default {
       }
     }
   }
-  .swiper-container {
-    width: 100%;
-    img {
-      width: 400px;
-    }
-  }
+
   .useless_button {
     width: 172px;
     height: 30px;
@@ -389,6 +344,7 @@ export default {
           box-sizing: border-box;
           z-index: 999;
           margin: 8px;
+          background: #fff;
           .hot-Model_b_img {
             height: 88px;
             display: flex;

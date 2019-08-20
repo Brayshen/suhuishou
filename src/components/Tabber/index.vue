@@ -11,7 +11,7 @@
 <script>
 export default {
 
-  name: "Tabbar",
+  name: 'Tabbar',
   props: {
     tabs: {
       type: Array

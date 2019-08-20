@@ -34,14 +34,14 @@
 </template>
 
 <script>
-function resetZoom() {
-  var designWidth = 414 //设计稿宽度，需根据设计稿进行调整
-  var deviceWidth = document.documentElement.clientWidth //设备宽度
+function resetZoom () {
+  var designWidth = 414 // 设计稿宽度，需根据设计稿进行调整
+  var deviceWidth = document.documentElement.clientWidth // 设备宽度
   var scale = deviceWidth / designWidth
   document.body.style.zoom = scale
 }
 resetZoom()
-window.onresize = function() {
+window.onresize = function () {
   resetZoom()
 }
 </script>

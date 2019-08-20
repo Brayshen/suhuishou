@@ -1,46 +1,86 @@
 <template>
   <div class="swiper-container">
     <div class="swiper-wrapper">
-      <div class="swiper-slide">
-        <img src="https://image.suhuishou.com/attached/image/20190315/20190315152620_97175.jpg" alt />
-      </div>
-      <div class="swiper-slide">
-        <img src="https://image.suhuishou.com/attached/image/20190709/20190709091743_24936.jpg" alt />
-      </div>
-      <div class="swiper-slide">
-        <img src="https://image.suhuishou.com/attached/image/20190722/20190722091951_15814.jpg" alt />
+      <div class="swiper-slide" v-for="(img, index) in imgs" :key="index">
+        <img :src="img" alt />
       </div>
     </div>
+    <!-- 如果需要分页器 -->
+    <div class="swiper-pagination" v-if="pagination" id="pagination"></div>
+
+    <!-- 如果需要导航按钮 -->
+    <template v-if="navigation">
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </template>
   </div>
 </template>
 
 <script>
-import Swiper from "swiper";
-import "swiper/dist/css/swiper.css";
+import Swiper from 'swiper'
+import 'swiper/dist/css/swiper.css'
 
 export default {
-  name: "Banner",
+  name: 'Banner',
+
+  props: {
+    imgs: Array, // 轮播图的数据 ['http://11.jpg', 'http://22.jpg']
+    pagination: {
+      type: Boolean,
+      default: true
+    }, // 是否需要分页器
+    navigation: Boolean, // 是否需要前进后退按钮,
+    autoplay: Boolean,
+    loop: Boolean // 是否自动播放
+  },
 
   methods: {
-    initSwiper() {
-      new Swiper(".swiper-container", {
-        autoplay: true,
-        loop: true // 循环模式选项
-      });
+    /**
+     * 初始化 swiper
+     */
+    initSwiper () {
+      new Swiper('.swiper-container', {
+        autoplay: !!this.autoplay,
+        loop: !!this.loop,
+        pagination: this.pagination
+          ? {
+            el: '.swiper-pagination',
+            bulletElement: 'li'
+          }
+          : {},
+
+        navigation: this.navigation
+          ? {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
+          }
+          : {}
+      })
     }
   },
-  mounted () {
-    this.initSwiper();
-  }
-};
-</script>
 
-<style lang="scss">
+  mounted () {
+    this.initSwiper()
+  }
+  // updated() {
+  //   this.initSwiper()
+  // }
+}
+</script>
+<style lang="scss" scoped>
 .swiper-container {
-  height: 180px;
+  width: 100%;
+
   img {
-    height: 180px;
-    width: 100%;
+    width: 400px;
+  }
+}
+#pagination {
+  .swiper-pagination-bullet {
+    background-color: rgba(255, 255, 255, 0.6) !important;
+  }
+  .swiper-pagination-bullet-active {
+    background-color: #ffffff !important;
   }
 }
 </style>
