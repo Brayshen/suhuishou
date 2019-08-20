@@ -1,7 +1,7 @@
 <template>
   <!-- 搜索的上半部分 -->
   <div class="page-search">
-    <div class="search-box" :class="{'z-fived':isFixed}">
+    <div class="search-box">
       <a href="#" class="z_xiaoyu">
         <em class="icon iconfont iconxiaoyuhao"></em>
       </a>
@@ -60,7 +60,6 @@ export default {
   name: "Search",
   data () {
     return {
-      isFixed: false,
       lists: [
         {
           icon: "iconxiaoyuhao"
