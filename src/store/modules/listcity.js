@@ -38,7 +38,6 @@ export default {
       state.logolist = payload.logolist
     }
   },
-
   actions: {
     // 获取手机产品的列表数据
     getPhonelist({ commit }) {

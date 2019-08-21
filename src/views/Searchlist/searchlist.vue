@@ -7,7 +7,7 @@
       </a>
       <a href="#" class="search-right">
         <em class="icon iconfont icon-fangdajing"></em>
-        <span>请输入关键词搜索,小生儿~</span>
+        <span>请输入关键词搜索</span>
       </a>
       <ul class="search-type">
         <li
@@ -72,7 +72,7 @@ export default {
   data () {
     return {
       Searchlist: 1, //点击搜索的id
-      curBrandId: " ", //选择品牌的id
+      curBrandId: "quanbu", //选择品牌的id
       phones: [], //
       pinyin: " ",
       allId: " ", //控制显示全部高亮的id~
