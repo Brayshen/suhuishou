@@ -7,7 +7,7 @@
       </a>
       <a href="#" class="search-right">
         <em class="icon iconfont icon-fangdajing"></em>
-        <span>请输入关键词搜索,小生儿~</span>
+        <span>请输入关键词搜索</span>
       </a>
       <ul class="search-type">
         <li
