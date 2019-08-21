@@ -21,14 +21,19 @@
     <!-- 商品的列表页 -->
     <div class="z_product_list">
       <ul class="brands">
-        <li class="active">
-          <span class="z_span">全部</span>
+        <li
+          v-for="item in all"
+          :key="item.id"
+          :class="{'active': item.id === curBrandId}"
+          @click="fn1(item.id)"
+        >
+          <span class="z_span">{{item.name}}</span>
         </li>
         <li
           v-for="item in logolist"
           :key="item.id"
           :class="{'active':item.id===curBrandId}"
-          @click="fn(item.id)"
+          @click="fn1(item.id)"
         >
           <a href="#">
             <img :src="item.logo" />
@@ -69,15 +74,16 @@ export default {
       Searchlist: 1, //点击搜索的id
       curBrandId: " ", //选择品牌的id
       phones: [], //
-      pinyin: " "
+      pinyin: " ",
+      allId: " ", //控制显示全部高亮的id~
     }
   },
   computed: {
-    ...mapGetters('listcity', ['setphonelist', 'citylist', 'logolist', 'earchlist'])
+    ...mapGetters('listcity', ['setphonelist', 'citylist', 'logolist', 'earchlist', 'all'])
   },
   methods: {
     ...mapActions('listcity', ['getPhonelist']),
-    fn (id) {
+    fn1 (id) {
       this.curBrandId = id;
       this.getPhones();
     },
@@ -86,6 +92,10 @@ export default {
       this.pinyin = pinyin;
       this.getPhones();
     },
+    fn3 (id) {
+      this.allId = id;
+      this.getallphone();
+    },
     getPhones () {
       request.get(`http://localhost:3000/${this.curBrandId}`).then(res => {
         this.phones = res.products;
@@ -93,12 +103,18 @@ export default {
       request.get(`http://localhost:3000/${this.pinyin}`).then(res => {
         this.phones = res.products;
       });
+    },
+    // 初始状态下,加载全部的数据
+    getallphone () {
+      request.get('http://localhost:3000/quanbu').then(res => {
+        this.phones = res.products;
+      });
     }
   },
   created () {
     this.getPhones(); //这个是默认显示
     this.getPhonelist();
-
+    this.getallphone();   // 初始状态下,加载全部的数据
   }
 }
 </script>

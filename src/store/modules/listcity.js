@@ -12,7 +12,8 @@ export default {
       { pinyin: 'taishiji', id: 4, name: '台式机' },
       { pinyin: 'xaingji', id: 5, name: '相机' },
       { pinyin: 'shoubiao', id: 6, name: '手表' }
-    ]
+    ],
+    all: [{ id: 'quanbu', name: '全部', yin: 'quanbu' }]
   },
   getters: {
     citylist(state) {
@@ -23,6 +24,9 @@ export default {
     },
     earchlist(state) {
       return state.earchlist
+    },
+    all(state) {
+      return state.all
     }
   },
 
@@ -38,15 +42,13 @@ export default {
   actions: {
     // 获取手机产品的列表数据
     getPhonelist({ commit }) {
-      request.get('http://localhost:3000/dataes').then(res => {
+      request.get('http://localhost:3000/quanbu').then(res => {
         if (res.Status === 0) {
-          console.log(res.brands)
-          // console.log(res.products)
           console.log('请求成功~')
-          // commit({
-          //   type: 'setphonelist',
-          //   searchlist: res.products
-          // })
+          commit({
+            type: 'setphonelist',
+            searchlist: res.products
+          })
           commit({
             type: 'Logolist',
             logolist: res.brands
