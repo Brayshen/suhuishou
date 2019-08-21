@@ -1,6 +1,6 @@
 <template>
   <div class="page-city">
-    <van-nav-bar title="城市列表" left-arrow @click-left="onClickLeft" />
+    <van-nav-bar title="选择城市" left-arrow @click-left="onClickLeft" />
     <div class="van-index-anchor">
       <div class="van-cen">#</div>
     </div>
@@ -15,9 +15,8 @@
       <li>广州市</li>
       <li>武汉市</li>
     </ul>
-
     <ul class="z_list_city">
-      <li class="city-list__item" v-for="item in cityList">
+      <li class="city-list__item" v-for="item in cityList" :key="item.id">
         <div class="z_list_city_cen">{{item.py}}</div>
         <ul class="z_city_list_two">
           <li>
