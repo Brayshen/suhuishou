@@ -2,15 +2,20 @@ import request from '../../utils/request'
 
 export default {
   namespaced: true,
-
   state: {
-    cities: [] // 存储全部的城市数据
+    cities: [], // 存储全部的城市数据
+    Bigcity: [
+      { cityId: '1', name: '北京市' },
+      { cityId: '2', name: '上海市' },
+      { cityId: '3', name: '深圳市' },
+      { cityId: '4', name: '广州市' },
+      { cityId: '5', name: '武汉市' }
+    ]
   },
 
   getters: {
     cityList(state) {
       let result = []
-
       state.cities.forEach(item => {
         // 1. 取出当前城市的拼音首字母的大写
         let py = item.pinyin.charAt(0).toUpperCase()
@@ -36,9 +41,11 @@ export default {
         return a.py.charCodeAt() - b.py.charCodeAt()
       })
     },
-
     pys(state, getters) {
       return getters.cityList.map(item => item.py)
+    },
+    Bigcity(state) {
+      return state.Bigcity
     }
   },
 
@@ -64,6 +71,7 @@ export default {
         })
         .then(res => {
           if (res.status === 0) {
+            console.log(res.data.cities)
             commit({
               type: 'setCities',
               cities: res.data.cities

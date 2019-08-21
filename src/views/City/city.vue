@@ -1,36 +1,37 @@
 <template>
   <div class="page-city">
-    <van-nav-bar title="选择城市" left-arrow @click-left="onClickLeft" />
-    <div class="van-index-anchor">
-      <div class="van-cen">#</div>
-    </div>
-    <ul class="z_list-ci">
-      <li>#</li>
-      <li v-for="item in pys" :ref="'item-' + item.py" :key="item" @click="fn1(item)">{{item}}</li>
-    </ul>
-    <ul class="City-list">
-      <li>北京市</li>
-      <li>上海市</li>
-      <li>深圳市</li>
-      <li>广州市</li>
-      <li>武汉市</li>
-    </ul>
-    <ul class="z_list_city">
-      <li class="city-list__item" v-for="item in cityList" :key="item.id">
-        <div class="z_list_city_cen">{{item.py}}</div>
-        <ul class="z_city_list_two">
-          <li>
-            <ul>
+    <van-sticky>
+      <van-nav-bar title="选择城市" left-arrow @click-left="onClickLeft" />
+    </van-sticky>
+    <div class="city-box">
+      <div class="city-left">
+        <div class="van-index-anchor">
+          <div class="van-cen">#</div>
+        </div>
+        <ul class="City-list">
+          <li v-for="item in Bigcity" :key="item.id">{{item.name}}</li>
+        </ul>
+        <ul class="z_list_city">
+          <!-- 北上广城市的展示~ -->
+          <li class="city-list__item" v-for="item in cityList" :key="item.id">
+            <div class="z_list_city_cen">{{item.py}}</div>
+            <ul class="z_city_list_two">
               <li v-for="city in item.list" :key="city.cityId">{{city.name}}</li>
             </ul>
           </li>
         </ul>
-      </li>
-    </ul>
+      </div>
+
+      <ul class="z_list-ci">
+        <li>#</li>
+        <li v-for="item in pys" :ref="'item-' + item.py" :key="item" @click="fn1(item)">{{item}}</li>
+      </ul>
+    </div>
   </div>
 </template>
 <script>
-import { mapActions, mapGetters } from "vuex"
+import { mapState, mapActions, mapGetters } from "vuex"
+import { Toast } from "vant"
 export default {
   name: "City",
   data () {
@@ -40,6 +41,7 @@ export default {
   },
   methods: {
     ...mapActions('city', ['getCities']),
+
 
     onClickLeft () {
       this.$router.back()
@@ -55,17 +57,46 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('city', ['cityList', 'pys']),
+    ...mapState('city', ["cities"]),
+    ...mapGetters('city', ['cityList', 'pys', 'Bigcity']),
   },
 
   created () {
+    Toast.loading({ duration: 500 })
     this.getCities();
-  },
 
+  },
 }
 </script>
 <style lang="scss">
 @import '../../assets/styles/common/mixin.scss';
+.page-city {
+  height: 100%;
+}
+.city-box {
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+}
+.city-left {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+}
+.z_list-ci {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  li {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 20px;
+    color: #000;
+  }
+}
+
 .van-index-anchor {
   height: 32px;
   background: #f8f8f8;
@@ -78,16 +109,7 @@ export default {
   padding: 0 18px;
   box-sizing: border-box;
 }
-.z_list-ci {
-  position: fixed;
-  top: 163px;
-  left: 363px;
-  li {
-    font-weight: 500;
-    font-size: 10px;
-    line-height: 14px;
-  }
-}
+
 .City-list {
   padding-left: 20px;
   height: 170px;
