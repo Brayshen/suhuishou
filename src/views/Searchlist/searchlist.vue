@@ -72,7 +72,7 @@ export default {
   data () {
     return {
       Searchlist: 1, //点击搜索的id
-      curBrandId: " ", //选择品牌的id
+      curBrandId: "quanbu", //选择品牌的id
       phones: [], //
       pinyin: " ",
       allId: " ", //控制显示全部高亮的id~
