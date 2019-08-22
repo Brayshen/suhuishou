@@ -23,6 +23,7 @@ const routes = [
         path: 'my',
         component: () => import('./views/Home/my.vue')
       },
+
       {
         path: '',
         redirect: '/maishuoji'
@@ -52,6 +53,10 @@ const routes = [
   {
     path: '/goodlist',
     component: () => import('./views/goodList/index.vue')
+  },
+  {
+    path: '/search',
+    component: () => import('./views/Search/index.vue')
   }
 ]
 

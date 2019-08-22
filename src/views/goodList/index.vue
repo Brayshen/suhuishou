@@ -9,12 +9,12 @@
     <div class="page-goodList">
       <div id="hot-Model">
         <div class="hot-Model_t">
-          <i class="iconfont iconarrow_left"></i>
+          <router-link to="/huanshouji" tag="i" class="iconfont iconarrow_left"></router-link>
           <h5>产品列表</h5>
         </div>
         <div class="hot-Model_b">
           <ul>
-            <li v-for="item in goodlist" :key="item.id">
+            <li v-for="item in goodlist" :key="item.img">
               <div class="hot-Model_b_img">
                 <img :src="item.img" />
                 <span class="discount_text">-￥{{item.bonus_price}}</span>
@@ -98,6 +98,16 @@ export default {
   created() {
     this.getGoodList()
     // console.log(this.goodlist)
+  },
+  beforeRouteUpdate(to, from, next) {
+    // to 要去那个路由
+    // from 从哪里来
+    // next 是否放行，是个方法。调用的话，就可以让他去。
+    // console.log(to)
+    // console.log(from)
+    // console.log('路由有更新的时候触发')
+
+    next()
   }
 }
 </script>

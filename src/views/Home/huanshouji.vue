@@ -8,7 +8,7 @@
     </div>
     <h4 class="change_title">速回收已旧换新</h4>
     <div id="search">
-      <input type="text" class="ipt" placeholder="搜索您需要的机型" />
+      <router-link to="/search" tag="input" type="text" class="ipt" placeholder="搜索您需要的机型"></router-link>
       <button class="sub">
         <i class="iconfont icon-fangdajing"></i>
       </button>
@@ -70,7 +70,7 @@
                 </span>
               </div>
               <div class="hot-Model_bonusprice">享环保补助金</div>
-              <button class="hot-Model_btn">去换新</button>
+              <router-link to="/detail:11" tag="button" class="hot-Model_btn">去换新</router-link>
             </div>
           </li>
         </ul>
@@ -160,7 +160,7 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @mixin changePhone_title {
   h5 {
     font-size: 17px;
@@ -182,6 +182,7 @@ export default {
     }
   }
 }
+
 .page-huan {
   width: 400px;
   margin: 0 auto;
@@ -215,6 +216,21 @@ export default {
     widows: 100%;
     text-align: center;
     line-height: 53px;
+  }
+  .swiper-container {
+    width: 100%;
+
+    img {
+      width: 400px;
+    }
+  }
+  #pagination {
+    .swiper-pagination-bullet {
+      background-color: rgba(255, 255, 255, 0.6) !important;
+    }
+    .swiper-pagination-bullet-active {
+      background-color: #ffffff !important;
+    }
   }
   #search {
     width: 100%;

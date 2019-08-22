@@ -38,28 +38,28 @@ export default {
     /**
      * 初始化 swiper
      */
-    initSwiper () {
+    initSwiper() {
       new Swiper('.swiper-container', {
         autoplay: !!this.autoplay,
         loop: !!this.loop,
         pagination: this.pagination
           ? {
-            el: '.swiper-pagination',
-            bulletElement: 'li'
-          }
+              el: '.swiper-pagination',
+              bulletElement: 'li'
+            }
           : {},
 
         navigation: this.navigation
           ? {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev'
-          }
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev'
+            }
           : {}
       })
     }
   },
 
-  mounted () {
+  mounted() {
     this.initSwiper()
   }
   // updated() {
@@ -68,19 +68,4 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.swiper-container {
-  width: 100%;
-
-  img {
-    width: 400px;
-  }
-}
-#pagination {
-  .swiper-pagination-bullet {
-    background-color: rgba(255, 255, 255, 0.6) !important;
-  }
-  .swiper-pagination-bullet-active {
-    background-color: #ffffff !important;
-  }
-}
 </style>

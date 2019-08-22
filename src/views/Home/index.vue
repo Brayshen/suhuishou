@@ -5,24 +5,21 @@
   </div>
 </template>
 <script>
-
 import Tabbar from '../../components/Tabber/index'
 export default {
   name: 'Home',
   components: {
     Tabbar
   },
-  data () {
+  data() {
     return {
       tabs: [
         { id: 1, name: '卖手机', icon: 'iconjiu', href: '/maishuoji' },
         { id: 2, name: '换新机', icon: 'iconshouji', href: '/huanshouji' },
         { id: 3, name: '我的', icon: 'iconwode', href: '/my' }
-
       ]
     }
   }
-
 }
 </script>
 
