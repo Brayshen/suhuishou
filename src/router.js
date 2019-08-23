@@ -87,20 +87,39 @@ const routes = [
     }
   },
   {
-    path: '/center',
-    component: () => import('./views/Center/center.vue')
-  },
-  {
     path: '/huishou',
-    component: () => import('./views/Huishou/index.vue')
+    component: () => import('./views/Huishou/index.vue'),
+    meta: {
+      title: '以旧换新首页'
+    }
   },
   {
     path: '/detail:id',
-    component: () => import('./views/Detail/index.vue')
+    component: () => import('./views/Detail/index.vue'),
+    meta: {
+      title: '产品详情'
+    }
   },
   {
     path: '/goodlist',
-    component: () => import('./views/goodList/index.vue')
+    component: () => import('./views/goodList/index.vue'),
+    meta: {
+      title: '产品列表'
+    }
+  },
+  {
+    path: '/searchlist',
+    component: () => import('./views/Searchlist/searchlist.vue'),
+    meta: {
+      title: '城市搜索页'
+    }
+  },
+  {
+    path: '/search',
+    component: () => import('./views/Search/index.vue'),
+    meta: {
+      title: '机型搜索'
+    }
   }
 ]
 
