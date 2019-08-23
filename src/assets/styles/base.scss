@@ -1,7 +1,10 @@
-@import "./common/reset.scss";
+@import './common/reset.scss';
 
 // ===== 全局样式
 html,
 body {
   height: 100%;
+}
+#nprogress .bar {
+  background: pink;
 }
