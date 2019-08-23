@@ -1,30 +1,51 @@
-// import axios from 'axios'
+// 需要调用 ajax 。那么引入封装好的 网络请求工具模块
+import request from '../../utils/request'
 
-// export default {
-//   namespaced: true,
+export default {
+  namespaced: true,
 
-//   state: {
-//     bannerList: [] // 主页轮播图数据
-//   },
+  state: {
+    bannerList: [], // 热门影片轮播图数据
+    hotList: [], // 热门产品列表
+    newsList: [], // 新闻资讯
+    testList: [],
+    endTime: ''
+  },
 
-//   getters: {
-//     bannerListImgs (state) {
-//       return state.bannerList.map(item => item.img)
-//     }
-//   },
+  getters: {
+    bannerListImgs (state) {
+      return state.bannerList.map(item => item.adCode)
+    }
+  },
 
-//   mutations: {
-//     setBannerList (state, payload) {
-//       state.bannerList = payload
-//     }
-//   },
-//   actions: {
-//     getBannerList ({ commit }) {
-//       axios.get('http://localhost:3000/banner').then(data => {
-//         // console.log(data)
-//         // 请求成功 将后台返回的数据 存放在state数据中
-//         commit('setBannerList', data)
-//       })
-//     }
-//   }
-// }
+  mutations: {
+    setBannerList (state, payload) {
+      state.bannerList = payload
+    },
+    setHotList (state, payload) {
+      state.hotList = payload
+    },
+    setNewsList (state, payload) {
+      state.newsList = payload
+    },
+    setTestList (state, payload) {
+      state.testList = payload
+    },
+    setendTime (state, payload) {
+      state.endTime = payload
+    }
+  },
+
+  actions: {
+    getBannerList ({ commit }) {
+      request.get('http://localhost:3000/date2').then(data => {
+        console.log(data.activity.endTime)
+        commit('setBannerList', data.banner)
+        commit('setHotList', data.activity.products)
+        commit('setNewsList', data.article)
+        commit('setTestList', data.autoself)
+        commit('setendTime', data.activity.endTime)
+      })
+    }
+  }
+}
