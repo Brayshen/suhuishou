@@ -133,8 +133,9 @@ export default {
       ul {
         width: 100%;
         overflow: hidden;
+        margin: 0 auto;
         li {
-          width: 180.1px;
+          width: 190px;
           height: 254px;
           float: left;
           box-shadow: 0px 0px 2px #eee;

@@ -1,6 +1,9 @@
 // 需要调用 ajax 。那么引入封装好的 网络请求工具模块
+// import Vue from 'vue'
 import request from '../../utils/request'
-import { log } from 'util'
+// import VueRouter from 'vue-router'
+// import router from '../../router'
+// Vue.use(VueRouter)
 
 export default {
   namespaced: true,
@@ -33,22 +36,30 @@ export default {
   },
 
   actions: {
-    getBannerList({ commit }) {
+    getBannerList({ commit }, payload) {
       // axios.get('/banner') 如果这里直接用axios不用封装了baseUrl的实例则前面会自动生成页面地current_page=2址再拼接http://localhost:8080/banner
-      request.get('http://localhost:3000/data?id=20610').then(data => {
-        // 请求成功，还需将后台返回的数.据存放到 state 中
-        console.log(data[0].gallery)
 
-        let mobilebanners = data[0].gallery
-        commit('setBannerList', mobilebanners)
-      })
-    },
-    getState({ commit }) {
-      // axios.get('/banner') 如果这里直接用axios不用封装了baseUrl的实例则前面会自动生成页面地址再拼接http://localhost:8080/banner
+      let idNum = payload.params.id.substr(1)
       request
         .get('http://localhost:3000/data', {
           params: {
-            id: 20610
+            id: idNum
+          }
+        })
+        .then(data => {
+          // 请求成功，还需将后台返回的数.据存放到 state 中
+          console.log(data)
+          let mobilebanners = data[0].gallery
+          commit('setBannerList', mobilebanners)
+        })
+    },
+    getState({ commit }, payload) {
+      // axios.get('/banner') 如果这里直接用axios不用封装了baseUrl的实例则前面会自动生成页面地址再拼接http://localhost:8080/banner
+      let idNum = payload.params.id.substr(1)
+      request
+        .get('http://localhost:3000/data', {
+          params: {
+            id: idNum
           }
         })
         .then(data => {

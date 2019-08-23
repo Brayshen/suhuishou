@@ -1,10 +1,14 @@
 <template>
   <div class="page_detail">
+    <div id="addFixed">
+      <div>添加旧机，享受超额优惠</div>
+      <div>立即添加</div>
+    </div>
     <ul>
       <li v-for="(item, index) in products" :key="index">
         <div id="basicInfo">
-          <router-link to="/search" tag="i" class="iconfont iconarrow_left"></router-link>
-          <router-link to="/home" tag="i" class="iconfont iconzhuye"></router-link>
+          <i class="iconfont iconarrow_left" @click="back"></i>
+          <router-link to="/" tag="i" class="iconfont iconzhuye"></router-link>
           <h3 id="info_t">{{item.title.substr(0,8)}}</h3>
           <Banner pagination autoplay loop :imgs="bannerListImgs" v-if="bannerListImgs.length > 0" />
           <span class="info_p">¥{{item.price}}</span>
@@ -15,7 +19,7 @@
           <span>{{item.attr[0].attr_value[0].attr_value_name}}</span>
           <span>{{item.attr[1].attr_value[0].attr_value_name}}</span>
           <span>1件(可选服务)</span>
-          <i class="iconfont iconqj"></i>
+          <i class="iconfont iconqj" @click="showPopup"></i>
         </div>
         <div id="old_eva">
           <h4>旧机估价</h4>
@@ -39,25 +43,45 @@
         </div>
         <van-address-edit
           :area-list="areadate"
-          show-postal
           show-delete
-          show-set-default
           show-search-result
           @save="onSave"
           @delete="onDelete"
           @change-detail="onChangeDetail"
         />
-        <div v-html="item.desc" id="desc"></div>
+        <van-tabs type="line">
+          <van-tab title="=商品参数">
+            <div v-html="item.desc" id="desc"></div>
+          </van-tab>
+          <van-tab title="换新流程">
+            <div id="cProcess">
+              <div class="cP_inner">
+                <img src="../../../public/cProcess.jpg" alt />
+              </div>
+            </div>
+          </van-tab>
+        </van-tabs>
+        <!-- <van-popup v-model="show" position="bottom" get-container="#app"></van-popup> -->
+        <van-sku v-model="show" :sku="sku" :goods="goods" />
       </li>
     </ul>
   </div>
 </template>
 <script>
 import Vue from 'vue'
+import VueRouter from 'vue-router'
+// import router from '../../router'
+
 import Banner from '../../components/Banner'
 import { mapActions, mapState, mapGetters, mapMutations } from 'vuex'
-import { AddressEdit, Area, Toast } from 'vant'
-Vue.use(AddressEdit).use(Area)
+import { AddressEdit, Area, Toast, Tab, Tabs, Popup, Sku } from 'vant'
+Vue.use(AddressEdit)
+  .use(Area)
+  .use(Tab)
+  .use(Tabs)
+  .use(Popup)
+  .use(Sku)
+Vue.use(VueRouter)
 function resetZoom() {
   var designWidth = 1242 //设计稿宽度，需根据设计稿进行调整
   var deviceWidth = document.documentElement.clientWidth //设备宽度
@@ -84,6 +108,69 @@ export default {
     // areaList: Object,
     // searchResult: Array
   },
+  data() {
+    return {
+      show: false,
+      sku: {
+        // 数据结构见下方文档
+        tree: [
+          {
+            k: '选择颜色', // skuKeyName：规格类目名称
+            v: [
+              {
+                id: '30349', // skuValueId：规格值 id
+                name: '红色', // skuValueName：规格值名称
+                imgUrl: 'https://img.yzcdn.cn/1.jpg' // 规格类目图片，只有第一个规格类目可以定义图片
+              },
+              {
+                id: '1215',
+                name: '蓝色',
+                imgUrl: 'https://img.yzcdn.cn/2.jpg'
+              }
+            ],
+            k_s: 's1' // skuKeyStr：sku 组合列表（下方 list）中当前类目对应的 key 值，value 值会是从属于当前类目的一个规格值 id
+          },
+          {
+            k: '选择版本', // skuKeyName：规格类目名称
+            v: [
+              {
+                id: '30349', // skuValueId：规格值 id
+                name: '8GB+256GB', // skuValueName：规格值名称
+                imgUrl: 'https://img.yzcdn.cn/1.jpg' // 规格类目图片，只有第一个规格类目可以定义图片
+              },
+              {
+                id: '1215',
+                name: '6+128',
+                imgUrl: 'https://img.yzcdn.cn/2.jpg'
+              }
+            ],
+            k_s: 's1' // skuKeyStr：sku 组合列表（下方 list）中当前类目对应的 key 值，value 值会是从属于当前类目的一个规格值 id
+          }
+        ],
+        // 所有 sku 的组合列表，比如红色、M 码为一个 sku 组合，红色、S 码为另一个组合
+        list: [
+          {
+            id: 2259, // skuId，下单时后端需要
+            price: 100, // 价格（单位分）
+            s1: '1215', // 规格类目 k_s 为 s1 的对应规格值 id
+            s2: '1193', // 规格类目 k_s 为 s2 的对应规格值 id
+            s3: '0', // 最多包含3个规格值，为0表示不存在该规格
+            stock_num: 110 // 当前 sku 组合对应的库存
+          }
+        ],
+        price: '1.00', // 默认价格（单位元）
+        stock_num: 227, // 商品总库存
+        collection_id: 2261, // 无规格商品 skuId 取 collection_id，否则取所选 sku 组合对应的 id
+        none_sku: false
+      },
+      goods: {
+        // 数据结构见下方文档
+      },
+      messageConfig: {
+        // 数据结构见下方文档
+      }
+    }
+  },
 
   computed: {
     ...mapGetters('detail', ['bannerListImgs', 'productsInfo']),
@@ -93,6 +180,9 @@ export default {
 
   methods: {
     ...mapActions('detail', ['getBannerList', 'getState']),
+    showPopup() {
+      this.show = true
+    },
     onSave() {
       Toast('save')
     },
@@ -110,24 +200,71 @@ export default {
       } else {
         this.searchResult = []
       }
+    },
+    back() {
+      this.$router.back()
     }
   },
+
   created() {
-    this.getBannerList()
-    this.getState()
+    this.getBannerList(this.$route)
+    this.getState(this.$route)
   }
 }
 </script>
 <style lang="scss">
+.van-toast {
+  width: 300px;
+  height: 150px;
+  div {
+    font-size: 30px;
+    line-height: 150px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+  }
+}
+.van-dialog {
+  height: 400px;
+  box-sizing: border-box;
+  .van-dialog__header {
+    height: 150px;
+    box-sizing: border-box;
+    font-size: 50px;
+    line-height: 150px;
+  }
+  .van-hairline--top {
+    height: 250px;
+    box-sizing: border-box;
+    button {
+      width: 50%;
+      height: 100%;
+      span {
+        width: 100%;
+        height: 100%;
+        display: block;
+        font-size: 50px;
+        line-height: 250px;
+      }
+    }
+  }
+}
 .van-popup {
-  height: 600px !important;
+  width: 100%;
+  height: 600px;
   .van-picker {
-    height: 600px !important;
+    height: 600px;
     .van-picker__toolbar {
       height: 200px;
+      div {
+        width: 50%;
+        text-align: center;
+        line-height: 200px;
+        font-size: 50px;
+      }
     }
     .van-picker__columns {
-      height: 400px !important;
+      height: 400px;
       div {
         ul {
           li {
@@ -140,6 +277,14 @@ export default {
     }
   }
 }
+.van-sku-container {
+  height: 1346px;
+  margin-top: -208px;
+  .van-sku-header {
+    height: 483px;
+  }
+}
+
 @mixin middle_c {
   height: 300px;
   width: 100%;
@@ -204,6 +349,33 @@ export default {
 .page_detail {
   width: 100%;
   height: 100%;
+  position: relative;
+  #addFixed {
+    width: 1242px； height：208px;
+    line-height: 208px;
+    overflow: hidden;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10000;
+    div {
+      float: left;
+      text-align: center;
+      font-size: 60px;
+      &:nth-child(1) {
+        width: 70%;
+        background: #fff;
+        color: #999999;
+      }
+      &:nth-child(2) {
+        width: 30%;
+        background: #f9415d;
+        border-radius: 6px;
+        color: #fff;
+      }
+    }
+  }
   ul {
     width: 100%;
     height: 100%;
@@ -212,7 +384,7 @@ export default {
       height: 100%;
       #basicInfo {
         width: 100%;
-        height: 1194px;
+        min-height: 364px;
         box-sizing: border-box;
         position: relative;
         border-bottom: 1px solid #f5f5f5;
@@ -296,14 +468,52 @@ export default {
         @include middle_c;
       }
       .van-address-edit {
-        div {
+        border-bottom: 35px solid #f5f5f5 !important;
+        .van-field {
           font-size: 44px;
           height: 134px;
           line-height: 134px;
+          color: #666666;
+          padding-left: 60px;
+          box-sizing: border-box;
+          .van-cell__title {
+            color: #666666;
+            width: 10%;
+          }
+          .van-cell__value {
+            width: 90%;
+          }
+        }
+        .van-address-edit__buttons {
+          width: 100%;
+          height: 268px;
+          padding: 0;
+          .van-button {
+            width: 100%;
+            padding: 0;
+            height: 122px;
+            font-size: 44px;
+          }
         }
       }
+      .van-tabs__wrap {
+        height: 134px !important;
+        bottom: top 2px solid #ebedf0;
+        .van-tabs__line {
+          height: 8px;
+          color: #ff4444;
+          bottom: 30px;
+        }
+        .van-tab {
+          height: 134px;
+          line-height: 134px !important;
+          font-size: 40px;
+          color: #7d7e80;
+        }
+      }
+
       #desc {
-        font-size: 50px;
+        font-size: 40px;
         tbody {
           tr:nth-child(odd) {
             background: #eee;
@@ -322,6 +532,19 @@ export default {
           width: 100%;
           img {
             width: 100%;
+          }
+        }
+      }
+      #cProcess {
+        height: 1025px;
+        width: 100%;
+        background: #eee;
+        .cP_inner {
+          width: 100%;
+          height: 663px;
+          img {
+            widows: 100%;
+            height: 100%;
           }
         }
       }

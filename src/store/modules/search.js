@@ -32,7 +32,7 @@ export default {
   mutations: {
     setSearchRes(state, payload) {
       // console.log(state.resList)
-      let N_Data = payload.slice(1).map(item => item.data)
+      let N_Data = payload.slice(1, 2).map(item => item.data)
       console.log(N_Data)
       state.resList = N_Data
     },

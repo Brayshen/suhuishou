@@ -70,7 +70,7 @@
                 </span>
               </div>
               <div class="hot-Model_bonusprice">享环保补助金</div>
-              <router-link to="/detail:11" tag="button" class="hot-Model_btn">去换新</router-link>
+              <router-link :to="'/detail:'+item.id" tag="button" class="hot-Model_btn">去换新</router-link>
             </div>
           </li>
         </ul>
