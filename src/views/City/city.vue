@@ -66,7 +66,7 @@ export default {
 }
 </script>
 <style lang="scss">
-@import "../../assets/styles/common/mixin.scss";
+@import '../../assets/styles/common/mixin.scss';
 .van-index-anchor {
   height: 32px;
   background: #f8f8f8;

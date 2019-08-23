@@ -1,6 +1,6 @@
 <template>
   <div class="page-login">
-    <van-nav-bar title="登录" left-arrow :border="false" />
+    <van-nav-bar title="登录" left-arrow :border="false" @click-left="onClickLeft" />
     <div class="banner">
       <img
         src="https://sr.aihuishou.com/c2b/zy-fe/neom/5Jtb8yxp/static/media/login_banner.8bac3c37.png"
@@ -8,14 +8,14 @@
       />
     </div>
     <div class="tab">
-      <span class="active">快速登录</span>
-      <span>账号注册</span>
+      <span :class="{active: curPage === 'login'}" @click="curPage='login'">快速登录</span>
+      <span @click="curPage='logup'" :class="{active: curPage === 'logup'}">账号注册</span>
     </div>
     <div class="input-contanier">
       <div class="single-input">
         <label>账号</label>
         <div class="input-box">
-          <input type="text" placeholder="速回收账号" />
+          <input type="text" placeholder="速回收账号" v-model="name" />
         </div>
       </div>
     </div>
@@ -23,12 +23,12 @@
       <div class="single-input">
         <label>密码</label>
         <div class="input-box">
-          <input type="text" placeholder="密码" />
+          <input type="text" placeholder="密码" v-model="pwd" />
         </div>
       </div>
     </div>
     <div class="login-wrap">
-      <div class="add-tip">
+      <div class="add-tip" v-if="curPage === 'logup'">
         <van-checkbox v-model="checked" checked-color="yellow">
           我已详细阅读并同意
           <a href="#">用户协议</a> 和
@@ -36,19 +36,84 @@
         </van-checkbox>
       </div>
       <div class="btn">
-        <span class="submit active">登录</span>
+        <span
+          class="submit"
+          @click="submit"
+          :class="{active:isActive}"
+        >{{curPage === 'login' ? '登录' : '注册'}}</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
 export default {
   name: 'login',
-  data () {
+  data() {
     return {
-      checked: false
+      checked: false,
+      curPage: 'login',
+      name: '',
+      pwd: ''
     }
+  },
+  watch: {
+    curPage() {
+      this.checked = false
+      this.name = ''
+      this.pwd = ''
+    }
+  },
+  computed: {
+    ...mapState('login', []),
+    isActive() {
+      if (this.curPage === 'login') {
+        return this.name !== '' && this.pwd !== ''
+      } else {
+        return this.name !== '' && this.pwd !== '' && this.checked
+      }
+    }
+  },
+  methods: {
+    ...mapActions('login', ['registerApi', 'loginApi']),
+    submit() {
+      if (this.curPage === 'login') {
+        if (this.name === '' || this.pwd === '') {
+          this.$toast.fail('账号和密码不能为空')
+        } else {
+          this.loginApi({
+            username: this.name,
+            password: this.pwd,
+            success: () => {
+              let toPath = this.$route.query.redirect || '/my'
+              this.$router.replace(toPath)
+            }
+          })
+        }
+      } else {
+        if (this.name === '' || this.pwd === '') {
+          this.$toast.fail('账号和密码不能为空')
+        } else if (!this.checked) {
+          this.$toast('请勾选同意下方的用户协议进行注册')
+        } else {
+          this.registerApi({
+            username: this.name,
+            password: this.pwd,
+            success: () => {
+              this.curPage = 'login'
+            }
+          })
+        }
+      }
+    },
+    onClickLeft() {
+      //let toPath = this.$route.query.redirect || '/my'
+      this.$router.replace('/my')
+    }
+  },
+  created() {
+    // this.registerApi({ username: '张三', password: '123' })
   }
 }
 </script>
@@ -125,6 +190,7 @@ export default {
   .login-wrap {
     background: #f9faff;
     flex: 1;
+    padding-top: 10px;
   }
   .van-checkbox {
     padding: 15px;

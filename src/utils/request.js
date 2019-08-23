@@ -1,5 +1,5 @@
 // 基于 axios 做的一个封装，用来实现网络请求工具
-
+import store from '../store/index'
 // 1. 引入 axios
 import axios from 'axios'
 import { Toast } from 'vant'
@@ -11,7 +11,12 @@ const request = axios.create({
 })
 
 // 3. 在这还可以实现一些我们的拦截功能
-
+request.interceptors.request.use(config => {
+  if (store.state.login.token) {
+    config.headers['Access-Token'] = store.state.login.token
+  }
+  return config
+})
 // 3.1 响应拦截
 //    3.1.1 直接将 response.data 给返回出去，以方便外面调用时还得 .data
 request.interceptors.response.use(

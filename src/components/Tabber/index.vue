@@ -24,18 +24,7 @@ export default {
 .Tabbar {
   display: flex;
   height: 53px;
-  // position: relative;
   box-sizing: border-box;
-  // &::before {
-  //   position: absolute;
-  //   top: 0;
-  //   left: 0;
-  //   width: 100%;
-  //   content: "";
-  //   background: rgba(134, 130, 130);
-  //   height: 1px;
-  //   transform: scaleY(0.5);
-  // }
   box-shadow: 0 0 2px rgba(134, 130, 130);
 }
 li {
