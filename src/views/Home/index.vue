@@ -5,7 +5,6 @@
   </div>
 </template>
 <script>
-
 import Tabbar from '../../components/Tabber/index';
 export default {
   name: 'Home',
