@@ -13,48 +13,61 @@
         </ul>
         <ul class="z_list_city">
           <!-- 北上广城市的展示~ -->
-          <li class="city-list__item" v-for="item in cityList" :key="item.id">
-            <div class="z_list_city_cen">{{item.py}}</div>
-            <ul class="z_city_list_two">
-              <li v-for="city in item.list" :key="city.cityId">{{city.name}}</li>
-            </ul>
+          <li
+            class="city-list__item"
+            :ref="'item-'+item.py"
+            v-for="item in cityList"
+            :key="item.id"
+          >
+            <div class="city-bog" ref="mybox">
+              <div class="z_list_city_cen">{{item.py}}</div>
+              <ul class="z_city_list_two">
+                <li v-for="city in item.list" :key="city.cityId">{{city.name}}</li>
+              </ul>
+            </div>
           </li>
         </ul>
       </div>
-
+      <kefu :content="content"></kefu>
       <ul class="z_list-ci">
         <li>#</li>
-        <li v-for="item in pys" :ref="'item-' + item.py" :key="item" @click="fn1(item)">{{item}}</li>
+        <li v-for="item in pys" :key="item" @click="fn1(item)">{{item}}</li>
       </ul>
     </div>
   </div>
 </template>
 <script>
-import { mapState, mapActions, mapGetters } from "vuex"
-import { Toast } from "vant"
+import { mapState, mapActions, mapGetters } from "vuex";
+import BScroll from "better-scroll";
+import { Toast } from "vant";
+import Kefu from "../../components/Kefu"
 export default {
   name: "City",
+  components: {
+    Kefu
+  },
   data () {
     return {
       value: "",
+      content: [
+        { name: "在线客服", icon: "iconkefu", id: 1 }
+      ]
     }
   },
   methods: {
     ...mapActions('city', ['getCities']),
-
-
     onClickLeft () {
       this.$router.back()
     },
     fn1 (py) {
-      console.log(456)
-      // 1. 我得知道我点击的是个啥
-      let itemBox = this.$refs[`item-${py}`][0]
-      // 2. 算出 itemBox 距离顶部的高度
-      let offsetTop = itemBox.offsetTop - 100
-      // 3. 控制那个可滚动div的 scrollTop
-      this.$refs['myBox'].scrollTop = offsetTop
-    }
+      console.log(this.$refs[`item-${py}`])
+
+      let itemBox = this.$refs[`item-${py}`][0];
+      let offsetTop = itemBox.offsetTop - 46;
+      this.$refs['mybox'].scrollTop = offsetTop;
+      console.log(this.$refs['mybox'].scrollTop);
+    },
+
   },
   computed: {
     ...mapState('city', ["cities"]),
@@ -64,14 +77,17 @@ export default {
   created () {
     Toast.loading({ duration: 500 })
     this.getCities();
-
   },
+  mounted () {
+    this.$el.addEventListener('scroll', this.bindScroll)
+  }
 }
 </script>
 <style lang="scss">
 @import '../../assets/styles/common/mixin.scss';
 .page-city {
   height: 100%;
+  overflow: hidden;
 }
 .city-box {
   height: 100%;
@@ -89,6 +105,10 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: fixed;
+  top: 160px;
+  left: 357px;
+  z-index: 3;
   li {
     font-weight: 500;
     font-size: 13px;

@@ -41,6 +41,7 @@
           <span>{{item.name}}</span>
         </li>
       </ul>
+      <kefu :content="content"></kefu>
       <!-- 右边列表~ -->
       <div class="z_van_list">
         <div class="z_item">
@@ -66,9 +67,13 @@
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
-import request from '../../utils/request'
+import request from '../../utils/request';
+import Kefu from "../../components/Kefu"
 export default {
   name: "Search",
+  components: {
+    Kefu
+  },
   data () {
     return {
       Searchlist: 1, //点击搜索的id
@@ -76,6 +81,10 @@ export default {
       phones: [], //
       pinyin: " ",
       allId: " ", //控制显示全部高亮的id~
+      value: "",
+      content: [
+        { name: "在线客服", icon: "iconkefu", id: 1 }
+      ]
     }
   },
   computed: {

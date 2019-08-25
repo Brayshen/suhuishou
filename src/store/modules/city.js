@@ -12,7 +12,6 @@ export default {
       { cityId: '5', name: '武汉市' }
     ]
   },
-
   getters: {
     cityList(state) {
       let result = []
@@ -38,10 +37,13 @@ export default {
       })
 
       return result.sort((a, b) => {
+        // return a.py.charCodeAt() - b.py.charCodeAt()
         return a.py.charCodeAt() - b.py.charCodeAt()
       })
     },
+    //在getter里面定义了一个方法拿gettters 里面的数据,
     pys(state, getters) {
+      // return getters.cityList.map(item => item.py)
       return getters.cityList.map(item => item.py)
     },
     Bigcity(state) {
