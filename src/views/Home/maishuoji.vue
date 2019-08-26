@@ -171,7 +171,7 @@ import { mapActions, mapGetters, mapState } from 'vuex'
 
 
 function resetZoom() {
-  var designWidth = 375 //设计稿宽度，需根据设计稿进行调整
+  var designWidth = 414 //设计稿宽度，需根据设计稿进行调整
   var deviceWidth = document.documentElement.clientWidth //设备宽度
   var scale = deviceWidth / designWidth
   document.body.style.zoom = scale
