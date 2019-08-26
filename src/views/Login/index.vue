@@ -47,10 +47,20 @@
 </template>
 
 <script>
+function resetZoom () {
+  var designWidth = 375 // 设计稿宽度，需根据设计稿进行调整
+  var deviceWidth = document.documentElement.clientWidth // 设备宽度
+  var scale = deviceWidth / designWidth
+  document.body.style.zoom = scale
+}
+resetZoom()
+window.onresize = function () {
+  resetZoom()
+}
 import { mapActions, mapState } from 'vuex'
 export default {
   name: 'login',
-  data() {
+  data () {
     return {
       checked: false,
       curPage: 'login',
@@ -59,7 +69,7 @@ export default {
     }
   },
   watch: {
-    curPage() {
+    curPage () {
       this.checked = false
       this.name = ''
       this.pwd = ''
@@ -67,7 +77,7 @@ export default {
   },
   computed: {
     ...mapState('login', []),
-    isActive() {
+    isActive () {
       if (this.curPage === 'login') {
         return this.name !== '' && this.pwd !== ''
       } else {
@@ -77,7 +87,7 @@ export default {
   },
   methods: {
     ...mapActions('login', ['registerApi', 'loginApi']),
-    submit() {
+    submit () {
       if (this.curPage === 'login') {
         if (this.name === '' || this.pwd === '') {
           this.$toast.fail('账号和密码不能为空')
@@ -107,12 +117,12 @@ export default {
         }
       }
     },
-    onClickLeft() {
+    onClickLeft () {
       //let toPath = this.$route.query.redirect || '/my'
       this.$router.replace('/my')
     }
   },
-  created() {
+  created () {
     // this.registerApi({ username: '张三', password: '123' })
   }
 }
